@@ -1,0 +1,18 @@
+{
+  "name": "american-fork-junk-removal-leadgen",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hyper-local rank & rent lead generation site for junk removal in American Fork, UT.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.7.0",
+    "@astrojs/sitemap": "^3.2.1"
+  }
+}

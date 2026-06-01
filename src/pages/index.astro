@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import WhatWeTake from '../components/WhatWeTake.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Reviews from '../components/Reviews.astro';
+import AreasServed from '../components/AreasServed.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../config/site';
+
+// Required meta tags (exact copy from the project brief).
+const title = 'Junk Removal American Fork UT | Fast & Affordable';
+const description =
+  'Need fast junk removal in American Fork, Utah? We haul away furniture, appliances, yard waste, and construction debris. Call now for a free estimate!';
+---
+
+<Layout title={title} description={description} path="/">
+  <Hero
+    h1="Junk Removal Services in American Fork, UT"
+    lede={`Fast, affordable, same-day junk hauling in ${SITE.city}, ${SITE.stateLong}. We take furniture, appliances, yard waste, and construction debris — you point, we haul.`}
+  />
+
+  <TrustBadges />
+
+  <!-- H2: What We Take (Appliances, Furniture, Yard Waste) -->
+  <WhatWeTake />
+
+  <!-- H2: How Our American Fork Hauling Process Works -->
+  <ProcessSteps />
+
+  <Reviews />
+
+  <AreasServed />
+
+  <CtaBand />
+</Layout>

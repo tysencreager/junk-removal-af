@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import WhatWeTake from '../components/WhatWeTake.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import AreasServed from '../components/AreasServed.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../config/site';
+
+const title = 'Junk & Debris Removal Services in American Fork UT | Full-Service Hauling';
+const description =
+  'Full-service junk and debris removal in American Fork, Utah. Furniture, appliances, yard waste, construction debris, and full property cleanouts. Same-day hauling — call for a free estimate!';
+
+const services = [
+  { h3: 'Residential Junk Removal', body: 'Single items to whole-house cleanouts for American Fork homeowners and renters.' },
+  { h3: 'Commercial & Office Hauling', body: 'Offices, retail, and rental turnovers — fast, scheduled debris removal.' },
+  { h3: 'Construction Debris Removal', body: 'Post-remodel and renovation debris: drywall, lumber, tile, flooring, and more.' },
+  { h3: 'Yard Waste & Landscaping Debris', body: 'Branches, sod, soil, leaves, old fencing, and seasonal cleanup hauling.' },
+  { h3: 'Garage, Basement & Storage Cleanouts', body: 'Clear out years of clutter in one visit — we do all the lifting.' },
+  { h3: 'Estate & Eviction Cleanouts', body: 'Discreet, fast full-property cleanouts handled start to finish.' },
+];
+---
+
+<Layout title={title} description={description} path="/services">
+  <Hero
+    eyebrow={`Full-Service Hauling in ${SITE.city}, ${SITE.state}`}
+    h1="Junk & Debris Removal Services in American Fork, UT"
+    lede="One local crew for everything you need gone — junk, debris, and complete cleanouts. Upfront pricing and same-day service across American Fork and Utah County."
+    formHeading="Get a Free Hauling Quote"
+    formSource="services-hero"
+  />
+
+  <TrustBadges />
+
+  <section class="section" aria-labelledby="svc-h">
+    <div class="container">
+      <span class="eyebrow">Everything We Haul Away</span>
+      <h2 id="svc-h">Complete Junk & Debris Removal in {SITE.city}</h2>
+      <p class="lede">
+        Whatever the job, we have the truck and the crew. Here’s what {SITE.businessName} handles every day:
+      </p>
+      <div class="grid grid--3" style="margin-top: 26px;">
+        {services.map((s) => (
+          <div class="card">
+            <h3>{s.h3}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <WhatWeTake heading="Items We Take" intro="If it’s not hazardous, it’s probably on our truck by the end of the day. Common categories include:" />
+
+  <ProcessSteps />
+
+  <AreasServed />
+
+  <CtaBand />
+</Layout>

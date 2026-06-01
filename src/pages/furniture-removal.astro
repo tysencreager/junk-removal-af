@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import AreasServed from '../components/AreasServed.astro';
+import CtaBand from '../components/CtaBand.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { SITE } from '../config/site';
+
+const title = 'Furniture Removal & Disposal American Fork UT | Same-Day Haul Away';
+const description =
+  'Need furniture disposal in American Fork, Utah? We remove couches, mattresses, dressers, and old furniture — same-day pickup and donation. Call now for a free estimate!';
+
+const items = [
+  { h3: 'Couch & Sofa Removal', body: 'Sectionals, sleeper sofas, loveseats, and recliners carried out for you.' },
+  { h3: 'Mattress & Box Spring Removal', body: 'Any size mattress and frame removed and responsibly disposed of.' },
+  { h3: 'Dresser, Table & Cabinet Removal', body: 'Heavy wood furniture, dining sets, desks, and shelving units.' },
+  { h3: 'Office Furniture Removal', body: 'Desks, chairs, cubicles, and filing cabinets from homes or offices.' },
+  { h3: 'Patio & Outdoor Furniture', body: 'Old patio sets, grills, and worn-out outdoor furniture hauled away.' },
+  { h3: 'Whole-Home Furniture Cleanouts', body: 'Moving or downsizing? We clear out a full home of furniture in one trip.' },
+];
+---
+
+<Layout title={title} description={description} path="/furniture-removal">
+  <Hero
+    eyebrow={`Same-Day Furniture Pickup in ${SITE.city}, ${SITE.state}`}
+    h1="Furniture Removal in American Fork, UT"
+    lede="Old couch, worn-out mattress, or a houseful of furniture to clear? We disassemble, lift, and haul it all away across American Fork — and donate what we can."
+    bullets={['We Donate Reusable Items', 'No Stairs Problem', 'Same-Day Service']}
+    formHeading="Get Your Furniture Hauled Today"
+    formSource="furniture-hero"
+  />
+
+  <TrustBadges />
+
+  <section class="section" aria-labelledby="furn-h">
+    <div class="container">
+      <span class="eyebrow">Furniture We Remove</span>
+      <h2 id="furn-h">American Fork Furniture Disposal &amp; Removal</h2>
+      <p class="lede">
+        Perfect for residential cleanouts, moves, and downsizing. Our {SITE.city} crew handles
+        the heavy, awkward pieces — including anything stuck up a flight of stairs.
+      </p>
+      <div class="grid grid--3" style="margin-top: 26px;">
+        {items.map((a) => (
+          <div class="card">
+            <h3>{a.h3}</h3>
+            <p>{a.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps heading={`How Furniture Removal Works in ${SITE.city}`} />
+
+  <section class="section section--mist">
+    <div class="container narrow">
+      <LeadForm
+        heading="Schedule Your Furniture Pickup"
+        sub="Tell us the pieces and your ZIP — we’ll reply with a fast, upfront price."
+        id="furniture"
+        source="furniture-mid"
+      />
+    </div>
+  </section>
+
+  <AreasServed />
+
+  <CtaBand heading={`Furniture to Clear Out in ${SITE.city}?`} />
+</Layout>
+
+<style>
+  .narrow { max-width: 620px; }
+</style>

@@ -1,0 +1,155 @@
+---
+import { SITE } from '../config/site';
+
+export interface Props {
+  /** Heading shown above the form. */
+  heading?: string;
+  /** Small supporting line under the heading. */
+  sub?: string;
+  /** Unique id suffix so multiple forms can live on one page. */
+  id?: string;
+  /** Source tag stored with the lead (which page/section it came from). */
+  source?: string;
+}
+
+const {
+  heading = 'Get Your Free Junk Removal Quote',
+  sub = 'Fast reply. No obligation. Same-day pickup available.',
+  id = 'lead',
+  source = 'site',
+} = Astro.props;
+
+const redirectUrl = new URL(SITE.form.redirect, SITE.url).href;
+---
+
+<form
+  class="lead-form"
+  id={`form-${id}`}
+  action={SITE.form.endpoint}
+  method="POST"
+  data-redirect={SITE.form.redirect}
+>
+  <div class="lead-form__head">
+    <h2 class="lead-form__title">{heading}</h2>
+    <p class="lead-form__sub">{sub}</p>
+  </div>
+
+  <!-- Routing fields. Works out-of-the-box with Web3Forms; rename for other
+       services (see README). Hidden so they never distract the visitor. -->
+  <input type="hidden" name="access_key" value={SITE.form.accessKey} />
+  <input type="hidden" name="subject" value={`New Junk Removal Lead — ${source}`} />
+  <input type="hidden" name="from_name" value={SITE.businessName} />
+  <input type="hidden" name="lead_source" value={source} />
+  <input type="hidden" name="redirect" value={redirectUrl} />
+  <!-- Honeypot for spam bots. Real users never see/fill this. -->
+  <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  <div class="field">
+    <label for={`name-${id}`}>Name</label>
+    <input id={`name-${id}`} name="name" type="text" autocomplete="name"
+      placeholder="Your name" required />
+  </div>
+
+  <div class="field">
+    <label for={`phone-${id}`}>Phone</label>
+    <input id={`phone-${id}`} name="phone" type="tel" autocomplete="tel"
+      inputmode="tel" placeholder="(801) 555-0123" required />
+  </div>
+
+  <div class="field">
+    <label for={`need-${id}`}>What do you need removed?</label>
+    <textarea id={`need-${id}`} name="message" rows="3"
+      placeholder="e.g. old fridge, couch, garage cleanout…" required></textarea>
+  </div>
+
+  <button type="submit" class="btn btn--form btn--block">
+    Get My Free Quote
+  </button>
+
+  <p class="lead-form__or">
+    or call now —
+    <a href={SITE.phone.tel} data-call={`form-${id}`}>{SITE.phone.display}</a>
+  </p>
+  <p class="lead-form__status" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  // Progressive enhancement: submit via fetch, then redirect to the Thank You
+  // page so conversion pixels fire reliably. If JS is off, the native POST +
+  // hidden `redirect` field still routes the lead and lands on Thank You.
+  document.querySelectorAll('form.lead-form').forEach((el) => {
+    const form = el as HTMLFormElement;
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const status = form.querySelector('.lead-form__status') as HTMLElement;
+    const redirect = form.dataset.redirect || '/thank-you';
+
+    form.addEventListener('submit', async (e) => {
+      // honeypot tripped → silently drop
+      if ((form.elements.namedItem('botcheck') as HTMLInputElement)?.checked) {
+        e.preventDefault();
+        return;
+      }
+      e.preventDefault();
+      btn.disabled = true;
+      const original = btn.textContent;
+      btn.textContent = 'Sending…';
+      status.textContent = '';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          window.location.href = redirect;
+          return;
+        }
+        throw new Error('Request failed');
+      } catch {
+        btn.disabled = false;
+        btn.textContent = original;
+        status.textContent =
+          'Sorry — something went wrong. Please call us and we’ll help right away.';
+        status.style.color = '#d9430f';
+      }
+    });
+  });
+</script>
+
+<style>
+  .lead-form {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px;
+  }
+  .lead-form__head { margin-bottom: 14px; }
+  .lead-form__title { font-size: 1.35rem; margin-bottom: 4px; }
+  .lead-form__sub { color: var(--slate); font-size: 0.95rem; margin: 0; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; }
+  .field input,
+  .field textarea {
+    width: 100%;
+    font: inherit;
+    padding: 13px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--mist);
+    color: var(--ink);
+  }
+  .field input:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(22, 128, 60, 0.15);
+  }
+  .field textarea { resize: vertical; }
+  .lead-form__or { text-align: center; margin: 12px 0 0; color: var(--slate); font-size: 0.95rem; }
+  .lead-form__or a { font-weight: 800; color: var(--orange-dark); text-decoration: none; }
+  .lead-form__status:empty { display: none; }
+  .lead-form__status { margin: 10px 0 0; font-weight: 600; font-size: 0.92rem; }
+</style>

@@ -1,0 +1,62 @@
+---
+import { SITE } from '../config/site';
+
+export interface Props {
+  heading?: string;
+}
+
+const { heading = `How Our ${SITE.city} Hauling Process Works` } = Astro.props;
+
+const steps = [
+  {
+    n: '1',
+    h3: 'Call or Request a Quote',
+    body: `Tell us what you need gone. We give you a fast, upfront price over the phone or by form — no surprises.`,
+  },
+  {
+    n: '2',
+    h3: 'We Show Up (Often Same Day)',
+    body: `Our insured ${SITE.city} crew arrives in your window, confirms the price, and does all the heavy lifting.`,
+  },
+  {
+    n: '3',
+    h3: 'We Haul It Away — You Relax',
+    body: `We load, sweep up, and dispose or donate responsibly. You only pay once the junk is gone.`,
+  },
+];
+---
+
+<section class="section" aria-labelledby="process-h">
+  <div class="container">
+    <span class="eyebrow">Simple 3-Step Process</span>
+    <h2 id="process-h">{heading}</h2>
+
+    <div class="grid grid--3 steps">
+      {steps.map((s) => (
+        <div class="step">
+          <span class="step__n" aria-hidden="true">{s.n}</span>
+          <h3>{s.h3}</h3>
+          <p>{s.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps { margin-top: 26px; }
+  .step { position: relative; padding-top: 8px; }
+  .step__n {
+    display: grid;
+    place-items: center;
+    width: 46px; height: 46px;
+    background: var(--green);
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    margin-bottom: 12px;
+  }
+  .step h3 { margin-bottom: 6px; }
+  .step p { color: var(--slate); margin: 0; }
+</style>

@@ -1,0 +1,46 @@
+---
+const badges = [
+  { label: 'Locally Owned', sub: 'American Fork based' },
+  { label: 'Same-Day Service', sub: 'Often within hours' },
+  { label: 'Upfront Pricing', sub: 'No hidden fees' },
+  { label: 'Fully Insured', sub: 'Licensed haulers' },
+];
+---
+
+<section class="badges" aria-label="Why choose us">
+  <div class="container badges__row">
+    {badges.map((b) => (
+      <div class="badge">
+        <span class="badge__ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3Zm-1.2 13.4-3-3 1.4-1.4 1.6 1.6 4-4 1.4 1.4-5.4 5.4Z"/></svg>
+        </span>
+        <span class="badge__text">
+          <strong>{b.label}</strong>
+          <span>{b.sub}</span>
+        </span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .badges { background: var(--green); color: #fff; }
+  .badges__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 22px 20px;
+  }
+  @media (min-width: 720px) { .badges__row { grid-template-columns: repeat(4, 1fr); } }
+  .badge { display: flex; align-items: center; gap: 12px; }
+  .badge__ico {
+    width: 38px; height: 38px; flex: none;
+    display: grid; place-items: center;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 9px;
+  }
+  .badge__ico svg { width: 22px; height: 22px; }
+  .badge__text { display: flex; flex-direction: column; line-height: 1.15; }
+  .badge__text strong { font-size: 0.98rem; }
+  .badge__text span { font-size: 0.8rem; opacity: 0.88; }
+</style>

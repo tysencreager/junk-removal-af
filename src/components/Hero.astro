@@ -1,0 +1,78 @@
+---
+import { SITE } from '../config/site';
+import LeadForm from './LeadForm.astro';
+
+export interface Props {
+  eyebrow?: string;
+  h1: string;
+  lede: string;
+  bullets?: string[];
+  formHeading?: string;
+  formSource?: string;
+}
+
+const {
+  eyebrow = `★★★★★  #1 Rated Junk Removal in ${SITE.city}, ${SITE.state}`,
+  h1,
+  lede,
+  bullets = ['Same-Day Service', 'Free, No-Obligation Quotes', 'Locally Owned & Operated'],
+  formHeading = 'Get Your Free Quote in 60 Seconds',
+  formSource = 'hero',
+} = Astro.props;
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <span class="eyebrow hero__eyebrow">{eyebrow}</span>
+      <h1>{h1}</h1>
+      <p class="lede">{lede}</p>
+
+      <ul class="checks hero__checks">
+        {bullets.map((b) => <li>{b}</li>)}
+      </ul>
+
+      <div class="hero__cta">
+        <a href={SITE.phone.tel} class="btn btn--call" data-call="hero">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.24 1l-2.23 2.3Z"/></svg>
+          Call {SITE.phone.display}
+        </a>
+        <span class="hero__cta-note">Open 7 days · 6am–9pm</span>
+      </div>
+    </div>
+
+    <div class="hero__form" id="quote">
+      <LeadForm heading={formHeading} source={formSource} id="hero" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(1200px 480px at 78% -10%, rgba(22, 128, 60, 0.16), transparent 60%),
+      linear-gradient(180deg, #f7faf8 0%, #ffffff 100%);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero__inner {
+    display: grid;
+    gap: 30px;
+    padding: 40px 20px 48px;
+  }
+  @media (min-width: 920px) {
+    .hero__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: start;
+      gap: 48px;
+      padding: 64px 20px 72px;
+    }
+  }
+  .hero__eyebrow { color: var(--gold); letter-spacing: 0.02em; }
+  .hero__checks { margin: 18px 0 24px; }
+  @media (min-width: 560px) {
+    .hero__checks { display: grid; grid-template-columns: 1fr 1fr; }
+  }
+  .hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+  .hero__cta .btn--call { font-size: 1.18rem; padding: 17px 26px; }
+  .hero__cta-note { color: var(--slate); font-weight: 600; font-size: 0.92rem; }
+</style>

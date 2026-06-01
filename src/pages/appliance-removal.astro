@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import AreasServed from '../components/AreasServed.astro';
+import CtaBand from '../components/CtaBand.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { SITE } from '../config/site';
+
+const title = 'Appliance Removal American Fork UT | Same-Day Pickup & Haul Away';
+const description =
+  'Fast appliance removal in American Fork, Utah. We haul away old refrigerators, washers, dryers, stoves, and water heaters — same-day pickup. Call now for a free estimate!';
+
+const appliances = [
+  { h3: 'Refrigerator & Freezer Removal', body: 'Old, leaking, or dead fridges and chest freezers hauled out safely.' },
+  { h3: 'Washer & Dryer Removal', body: 'We disconnect-ready haul old laundry units from any floor of your home.' },
+  { h3: 'Stove, Oven & Range Removal', body: 'Electric and gas-disconnected ranges, cooktops, and wall ovens.' },
+  { h3: 'Dishwasher Removal', body: 'Pulled and removed without scratching your cabinets or floors.' },
+  { h3: 'Water Heater Removal', body: 'Heavy, awkward tanks carried out so you don’t have to lift a thing.' },
+  { h3: 'Microwave & Small Appliance Removal', body: 'Microwaves, AC units, dehumidifiers, and other bulky small appliances.' },
+];
+---
+
+<Layout title={title} description={description} path="/appliance-removal">
+  <Hero
+    eyebrow={`Same-Day Appliance Pickup in ${SITE.city}, ${SITE.state}`}
+    h1="Appliance Removal in American Fork, UT"
+    lede="Got a dead fridge or an old washer taking up space? We haul away heavy appliances across American Fork — fast, insured, and same-day. You don’t lift a finger."
+    bullets={['Heavy Lifting Included', 'Same-Day Pickup', 'Eco-Friendly Disposal']}
+    formHeading="Get Your Appliance Hauled Today"
+    formSource="appliance-hero"
+  />
+
+  <TrustBadges />
+
+  <section class="section" aria-labelledby="app-h">
+    <div class="container">
+      <span class="eyebrow">Appliances We Haul Away</span>
+      <h2 id="app-h">American Fork Appliance Removal &amp; Disposal</h2>
+      <p class="lede">
+        From a single old refrigerator to a full kitchen’s worth of outdated units, our
+        {' '}{SITE.city} crew does all the heavy lifting and responsible disposal for you.
+      </p>
+      <div class="grid grid--3" style="margin-top: 26px;">
+        {appliances.map((a) => (
+          <div class="card">
+            <h3>{a.h3}</h3>
+            <p>{a.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps heading={`How Appliance Removal Works in ${SITE.city}`} />
+
+  <section class="section section--mist">
+    <div class="container narrow">
+      <LeadForm
+        heading="Schedule Your Appliance Pickup"
+        sub="Tell us the appliance and your ZIP — we’ll text back a fast, upfront price."
+        id="appliance"
+        source="appliance-mid"
+      />
+    </div>
+  </section>
+
+  <AreasServed />
+
+  <CtaBand heading={`Old Appliance to Get Rid Of in ${SITE.city}?`} />
+</Layout>
+
+<style>
+  .narrow { max-width: 620px; }
+</style>

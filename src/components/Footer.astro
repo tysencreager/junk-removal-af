@@ -1,0 +1,63 @@
+---
+import { SITE } from '../config/site';
+
+const year = new Date().getFullYear();
+
+// Internal links only — no outbound links, no social icons (zero-distraction
+// rule). These exist purely for crawlability and on-site lead routing.
+const pages = [
+  { href: '/', label: 'Junk Removal Home' },
+  { href: '/services', label: 'All Hauling Services' },
+  { href: '/appliance-removal', label: 'Appliance Removal' },
+  { href: '/furniture-removal', label: 'Furniture Removal' },
+  { href: '/contact', label: 'Get a Free Quote' },
+];
+---
+
+<footer class="ft">
+  <div class="container ft__inner">
+    <div>
+      <p class="ft__name">{SITE.businessName}</p>
+      <p class="ft__line">
+        Proudly serving {SITE.city}, {SITE.stateLong} {SITE.zip} and nearby Utah County.
+      </p>
+      <a class="ft__phone" href={SITE.phone.tel} data-call="footer">{SITE.phone.display}</a>
+    </div>
+
+    <nav class="ft__nav" aria-label="Site pages">
+      {pages.map((p) => <a href={p.href}>{p.label}</a>)}
+    </nav>
+  </div>
+
+  <div class="ft__bar">
+    <div class="container">
+      <p>© {year} {SITE.businessName}. Locally owned & operated · Same-day junk removal in {SITE.city}, {SITE.stateLong}.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ft { background: var(--ink); color: #cdded4; }
+  .ft__inner {
+    display: grid;
+    gap: 28px;
+    padding: 44px 20px;
+  }
+  @media (min-width: 720px) {
+    .ft__inner { grid-template-columns: 1.2fr 1fr; }
+  }
+  .ft__name { font-weight: 800; color: #fff; font-size: 1.15rem; margin-bottom: 6px; }
+  .ft__line { margin-bottom: 12px; max-width: 42ch; }
+  .ft__phone {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+  }
+  .ft__nav { display: grid; gap: 10px; align-content: start; }
+  .ft__nav a { color: #cdded4; text-decoration: none; }
+  .ft__nav a:hover { color: #fff; text-decoration: underline; }
+  .ft__bar { border-top: 1px solid rgba(255, 255, 255, 0.12); }
+  .ft__bar p { font-size: 0.85rem; color: #9fb4a8; padding: 16px 0; margin: 0; }
+</style>
