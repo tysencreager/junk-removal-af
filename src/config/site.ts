@@ -42,13 +42,12 @@ export const SITE = {
     tel: `tel:${PHONE_RAW}`,
   },
 
-  // Lead-capture form routing.
+  // Lead-capture form routing — Formspree.
   form: {
-    // TODO: replace with your webhook / form service endpoint.
-    endpoint: 'https://api.web3forms.com/submit',
-    // Some services (Web3Forms) require an access key in a hidden field.
-    // Leave blank if your endpoint does not use one.
-    accessKey: 'YOUR_ACCESS_KEY_HERE',
+    // Your Formspree endpoint. Create a form at https://formspree.io and paste
+    // its ID here (Forms → your form → the URL ends in /f/XXXXXXXX).
+    // TODO: replace `xxxxxxxx` with your real Formspree form ID.
+    endpoint: 'https://formspree.io/f/xxxxxxxx',
     // Visitors land here after a successful submit (fire conversion pixel here).
     redirect: '/thank-you',
   },

@@ -34,15 +34,15 @@ const redirectUrl = new URL(SITE.form.redirect, SITE.url).href;
     <p class="lead-form__sub">{sub}</p>
   </div>
 
-  <!-- Routing fields. Works out-of-the-box with Web3Forms; rename for other
-       services (see README). Hidden so they never distract the visitor. -->
-  <input type="hidden" name="access_key" value={SITE.form.accessKey} />
-  <input type="hidden" name="subject" value={`New Junk Removal Lead — ${source}`} />
-  <input type="hidden" name="from_name" value={SITE.businessName} />
+  <!-- Formspree routing fields. Hidden so they never distract the visitor.
+       `_next` redirects to the Thank You page (no-JS fallback); `_subject`
+       sets the notification email subject. -->
+  <input type="hidden" name="_subject" value={`New Junk Removal Lead — ${source}`} />
+  <input type="hidden" name="_next" value={redirectUrl} />
   <input type="hidden" name="lead_source" value={source} />
-  <input type="hidden" name="redirect" value={redirectUrl} />
-  <!-- Honeypot for spam bots. Real users never see/fill this. -->
-  <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <!-- Honeypot for spam bots — Formspree silently drops any submit where this
+       `_gotcha` field is filled. Real users never see it. -->
+  <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
   <div class="field">
     <label for={`name-${id}`}>Name</label>
@@ -85,7 +85,7 @@ const redirectUrl = new URL(SITE.form.redirect, SITE.url).href;
 
     form.addEventListener('submit', async (e) => {
       // honeypot tripped → silently drop
-      if ((form.elements.namedItem('botcheck') as HTMLInputElement)?.checked) {
+      if ((form.elements.namedItem('_gotcha') as HTMLInputElement)?.value) {
         e.preventDefault();
         return;
       }

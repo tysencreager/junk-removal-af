@@ -44,33 +44,43 @@ Every phone instance on the site is already a clickable `tel:` link, and each is
 tagged with a `data-call="..."` attribute (header, hero, sticky bar, footer,
 CTA, forms, thank-you) so you can wire click-to-call analytics easily.
 
-### 2. Form routing → your webhook/email + Thank-You redirect
+### 2. Form routing → Formspree + Thank-You redirect
 
-The 3-field lead form (**Name, Phone, What do you need removed?**) POSTs to
-`form.endpoint` and then redirects the visitor to **`/thank-you`** so a
-conversion pixel can fire.
+The 3-field lead form (**Name, Phone, What do you need removed?**) is wired for
+**[Formspree](https://formspree.io)**. It POSTs to `form.endpoint` and then
+redirects the visitor to **`/thank-you`** so a conversion pixel can fire.
 
 ```ts
 form: {
-  endpoint: 'https://api.web3forms.com/submit', // your webhook / form service
-  accessKey: 'YOUR_ACCESS_KEY_HERE',            // if your service uses one
+  endpoint: 'https://formspree.io/f/xxxxxxxx', // your Formspree form ID
   redirect: '/thank-you',
 }
 ```
 
-It works out-of-the-box with **[Web3Forms](https://web3forms.com)** (free):
-create an access key, paste it above — leads arrive in your inbox and the
-visitor lands on the Thank-You page.
+**Setup (2 minutes):**
 
-**Using a different provider / raw webhook?** The form submits standard
-`multipart/form-data` with fields: `name`, `phone`, `message`, `lead_source`,
-`subject`, plus the hidden `redirect`. Point `endpoint` at your webhook (Zapier,
-Make, n8n, your CRM). For **Formspree**, rename the hidden `redirect` field to
-`_next` in [`src/components/LeadForm.astro`](src/components/LeadForm.astro).
+1. Create a free account at [formspree.io](https://formspree.io) and add a new
+   form. Set the notification email to wherever leads should land.
+2. Copy the form's endpoint — it looks like `https://formspree.io/f/abcdwxyz`.
+3. Paste the ID into `endpoint` in [`src/config/site.ts`](src/config/site.ts)
+   (replace `xxxxxxxx`).
+4. Submit the form once on the live site so Formspree can send its one-time
+   confirmation email — click the link to verify, and leads start flowing.
 
-> The form uses fetch + JS to redirect on success, and also falls back to a
-> native POST + hidden `redirect` field if JavaScript is disabled. A honeypot
-> field blocks basic spam bots.
+The form submits the fields `name`, `phone`, `message`, and `lead_source`
+(which page/section the lead came from), plus Formspree's control fields:
+`_subject` (notification subject), `_next` (Thank-You redirect for the no-JS
+path), and `_gotcha` (honeypot — Formspree silently drops bot submissions that
+fill it).
+
+> The form uses fetch + JS to redirect on success (Formspree returns JSON for
+> AJAX submits), and falls back to a native POST + `_next` redirect if
+> JavaScript is disabled.
+
+**Want a raw webhook / different provider instead?** Point `endpoint` at your
+webhook (Zapier, Make, n8n, your CRM) — the visible fields are standard
+`multipart/form-data`. Provider-specific control fields (`_subject`, `_next`,
+`_gotcha`) live in [`src/components/LeadForm.astro`](src/components/LeadForm.astro).
 
 ### Conversion tracking
 
