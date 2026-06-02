@@ -8,9 +8,7 @@ import CtaBand from '../components/CtaBand.astro';
 import LeadForm from '../components/LeadForm.astro';
 import { SITE } from '../config/site';
 
-const title = 'Furniture Removal American Fork UT | Same-Day Pickup';
-const description =
-  'Need furniture disposal in American Fork, Utah? We remove couches, mattresses, dressers, and old furniture. Same-day pickup and donation — free estimate!';
+const c = SITE.content.furniture;
 
 const items = [
   { h3: 'Couch & Sofa Removal', body: 'Sectionals, sleeper sofas, loveseats, and recliners carried out for you.' },
@@ -23,16 +21,16 @@ const items = [
 ---
 
 <Layout
-  title={title}
-  description={description}
+  title={c.title}
+  description={c.description}
   path="/furniture-removal"
   breadcrumb="Furniture Removal"
-  service={{ name: 'Furniture Removal', description }}
+  service={{ name: 'Furniture Removal', description: c.description }}
 >
   <Hero
-    eyebrow={`Same-Day Furniture Pickup in ${SITE.city}, ${SITE.state}`}
-    h1="Furniture Removal in American Fork, UT"
-    lede="Old couch, worn-out mattress, or a houseful of furniture to clear? We disassemble, lift, and haul it all away across American Fork — and donate what we can."
+    eyebrow={c.eyebrow}
+    h1={c.h1}
+    lede={c.lede}
     bullets={['We Donate Reusable Items', 'No Stairs Problem', 'Same-Day Service']}
     formHeading="Get Your Furniture Hauled Today"
     formSource="furniture-hero"
@@ -43,9 +41,9 @@ const items = [
   <section class="section" aria-labelledby="furn-h">
     <div class="container">
       <span class="eyebrow">Furniture We Remove</span>
-      <h2 id="furn-h">American Fork Furniture Disposal &amp; Removal</h2>
+      <h2 id="furn-h">{SITE.regionShort} Furniture Disposal &amp; Removal</h2>
       <p class="lede">
-        Perfect for residential cleanouts, moves, and downsizing. Our {SITE.city} crew handles
+        Perfect for residential cleanouts, moves, and downsizing. Our {SITE.regionShort} crew handles
         the heavy, awkward pieces — including anything stuck up a flight of stairs.
       </p>
       <div class="grid grid--3" style="margin-top: 26px;">
@@ -59,7 +57,7 @@ const items = [
     </div>
   </section>
 
-  <ProcessSteps heading={`How Furniture Removal Works in ${SITE.city}`} />
+  <ProcessSteps heading={`How Furniture Removal Works in ${SITE.regionShort}`} />
 
   <section class="section section--mist">
     <div class="container narrow">
@@ -74,7 +72,7 @@ const items = [
 
   <AreasServed />
 
-  <CtaBand heading={`Furniture to Clear Out in ${SITE.city}?`} />
+  <CtaBand heading={`Furniture to Clear Out in ${SITE.regionShort}?`} />
 </Layout>
 
 <style>

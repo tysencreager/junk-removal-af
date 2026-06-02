@@ -5,10 +5,15 @@ import { SITE } from '../config/site';
 <section class="section" aria-labelledby="areas-h">
   <div class="container">
     <span class="eyebrow">Areas Served</span>
-    <h2 id="areas-h">Junk Removal Across {SITE.city} & Nearby Utah County</h2>
+    <h2 id="areas-h">
+      {SITE.scope === 'state'
+        ? `Junk Removal Across ${SITE.stateLong}`
+        : `Junk Removal Across ${SITE.regionShort} ${SITE.nearbyLabel}`}
+    </h2>
     <p class="lede">
-      We haul junk throughout {SITE.city}, {SITE.stateLong} ({SITE.zip}) and the
-      surrounding neighborhoods. If you’re close by, we can usually be there the same day.
+      {SITE.scope === 'state'
+        ? `We haul junk in cities across ${SITE.stateLong}. From the Wasatch Front to southern Utah, if you’re in our service area we can usually be there the same day.`
+        : `We haul junk throughout ${SITE.region} (${SITE.zip}) and the surrounding neighborhoods. If you’re close by, we can usually be there the same day.`}
     </p>
 
     <ul class="areas">

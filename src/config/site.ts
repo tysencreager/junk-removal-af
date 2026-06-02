@@ -1,75 +1,45 @@
 /**
- * SINGLE SOURCE OF TRUTH for the whole site.
+ * Active site selector.
  *
- * ── CALL TRACKING ──────────────────────────────────────────────────────────
- * The phone number lives here as a global variable. To swap in a CallRail /
- * Twilio tracking number later, change ONLY `phone.raw` and `phone.display`
- * below — every `tel:` link and on-page number across all pages updates
- * automatically. Do not hard-code phone numbers anywhere else.
+ * One codebase, multiple localized sites. The build picks a profile via the
+ * SITE_KEY environment variable (defaults to American Fork):
  *
- * ── FORM ROUTING ───────────────────────────────────────────────────────────
- * Lead form submissions POST to `form.endpoint`. Point this at your webhook
- * or a form-to-email service (Web3Forms, Formspree, Basin, Make/Zapier, etc.).
- * On success the visitor is redirected to `/thank-you` so a conversion pixel
- * can fire. See README.md for wiring instructions.
+ *   SITE_KEY=americanfork  npm run build   → junkremovalamericanfork.com
+ *   SITE_KEY=slc           npm run build   → junkremovalslc.com
+ *   SITE_KEY=utah          npm run build   → junkremovalservicesutah.com
+ *
+ * Convenience scripts: build:af / build:slc / build:utah / build:all.
+ *
+ * Add a new market: create src/config/profiles/<key>.ts and register it in
+ * PROFILES below. Everything else (copy, schema, sitemap, OG image) follows.
  */
+import type { SiteProfile } from './types';
+import { americanfork } from './profiles/americanfork';
+import { slc } from './profiles/slc';
+import { utah } from './profiles/utah';
 
-const PHONE_RAW = '+18017080084'; // swap here for a CallRail/Twilio tracking number later
-const PHONE_DISPLAY = '(801) 708-0084'; // keep in sync with the number above
+const PROFILES: Record<string, SiteProfile> = {
+  americanfork,
+  slc,
+  utah,
+};
 
+const key = process.env.SITE_KEY ?? 'americanfork';
+const profile = PROFILES[key];
+
+if (!profile) {
+  throw new Error(
+    `Unknown SITE_KEY "${key}". Valid keys: ${Object.keys(PROFILES).join(', ')}`,
+  );
+}
+
+// Derive the tel: href once so components never build it themselves.
 export const SITE = {
-  // Primary (canonical) domain — drives canonical URLs, sitemap, and schema.
-  // Other domains pointing here (junkremovalslc.com, junkremovalservicesutah.com)
-  // should 301-redirect to this one at the host level (see README → Domains).
-  url: 'https://junkremovalamericanfork.com',
-
-  businessName: 'American Fork Junk Removal',
-  legalName: 'American Fork Junk Removal',
-  tagline: 'Fast, Affordable, Same-Day Hauling',
-
-  city: 'American Fork',
-  state: 'UT',
-  stateLong: 'Utah',
-  zip: '84003',
-
-  // Geo center of American Fork, UT (used in LocalBusiness schema).
-  geo: { lat: 40.3769, lng: -111.7958 },
-
-  hours: 'Mo-Su 06:00-21:00',
-  priceRange: '$$',
-
+  ...profile,
   phone: {
-    raw: PHONE_RAW, // E.164 for tel: links
-    display: PHONE_DISPLAY, // human-readable, shown on the page
-    tel: `tel:${PHONE_RAW}`,
+    ...profile.phone,
+    tel: `tel:${profile.phone.raw}`,
   },
-
-  // Lead-capture form routing — Formspree.
-  form: {
-    endpoint: 'https://formspree.io/f/xrednnvq',
-    // Visitors land here after a successful submit (fire conversion pixel here).
-    redirect: '/thank-you',
-  },
-
-  // Local trust signal — specific American Fork neighborhoods & nearby areas.
-  areasServed: [
-    'Downtown American Fork',
-    'Shadow Valley',
-    'The Highlands',
-    'Hunter Hollow',
-    'Greenwood',
-    'Forbush Corner',
-    'Manning Canyon',
-    'Mountainville',
-    'Pioneer Crossing',
-    'Cedar Hills (nearby)',
-    'Highland (nearby)',
-    'Pleasant Grove (nearby)',
-    'Lehi (nearby)',
-    'Alpine (nearby)',
-  ],
-
-  zipsServed: ['84003'],
-} as const;
+};
 
 export type Site = typeof SITE;

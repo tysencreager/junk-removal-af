@@ -10,55 +10,25 @@ import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { SITE } from '../config/site';
 
-// Required meta tags (exact copy from the project brief).
-const title = 'Junk Removal American Fork UT | Fast & Affordable';
-const description =
-  'Need fast junk removal in American Fork, Utah? We haul away furniture, appliances, yard waste, and construction debris. Call now for a free estimate!';
-
-// Single source for the FAQ — rendered on the page AND emitted as FAQPage schema.
-const faqs = [
-  {
-    q: 'How much does junk removal cost in American Fork, UT?',
-    a: `Most ${SITE.city} junk removal jobs are priced by how much space your items take up in the truck, starting from single-item pickups up to full truckloads. We give you an upfront, all-inclusive price before we start — no hidden fees. Call ${SITE.phone.display} for a free estimate.`,
-  },
-  {
-    q: 'Do you offer same-day junk removal?',
-    a: `Yes. We offer same-day and next-day junk removal across ${SITE.city} and nearby Utah County whenever our schedule allows. Call early in the day for the best chance at a same-day pickup.`,
-  },
-  {
-    q: 'What items do you take?',
-    a: 'We haul almost anything non-hazardous: furniture, appliances, mattresses, yard waste, construction debris, electronics, hot tubs, and full garage, basement, or estate cleanouts. We cannot take hazardous materials like paint, chemicals, or asbestos.',
-  },
-  {
-    q: 'Do I need to move everything outside first?',
-    a: 'No. Our crew does all the heavy lifting. Just point to what you want gone — whether it is in the basement, garage, attic, or backyard — and we carry it out for you.',
-  },
-  {
-    q: 'What areas do you serve?',
-    a: `We serve all of ${SITE.city}, ${SITE.stateLong} (${SITE.zip}) and surrounding communities including Highland, Cedar Hills, Pleasant Grove, Lehi, and Alpine.`,
-  },
-];
+const c = SITE.content.home;
 ---
 
-<Layout title={title} description={description} path="/" faq={faqs}>
-  <Hero
-    h1="Junk Removal Services in American Fork, UT"
-    lede={`Fast, affordable, same-day junk hauling in ${SITE.city}, ${SITE.stateLong}. We take furniture, appliances, yard waste, and construction debris — you point, we haul.`}
-  />
+<Layout title={c.title} description={c.description} path="/" faq={c.faqs}>
+  <Hero h1={c.h1} lede={c.lede} />
 
   <TrustBadges />
 
   <!-- H2: What We Take (Appliances, Furniture, Yard Waste) -->
   <WhatWeTake />
 
-  <!-- H2: How Our American Fork Hauling Process Works -->
+  <!-- H2: How Our [Region] Hauling Process Works -->
   <ProcessSteps />
 
   <Reviews />
 
   <AreasServed />
 
-  <Faq heading="American Fork Junk Removal FAQs" items={faqs} />
+  <Faq heading={c.faqHeading} items={c.faqs} />
 
   <CtaBand />
 </Layout>

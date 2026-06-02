@@ -5,21 +5,16 @@ import TrustBadges from '../components/TrustBadges.astro';
 import AreasServed from '../components/AreasServed.astro';
 import { SITE } from '../config/site';
 
-const title = 'Junk Removal Quote American Fork UT | Free Same-Day Estimate';
-const description =
-  'Get a free junk removal quote in American Fork, Utah. Call now or send a few details for fast, upfront pricing and same-day pickup. No obligation!';
+const c = SITE.content.contact;
 ---
 
-<Layout title={title} description={description} path="/contact" breadcrumb="Get a Quote">
+<Layout title={c.title} description={c.description} path="/contact" breadcrumb="Get a Quote">
   <section class="hero hero--contact">
     <div class="container quote">
       <div class="quote__copy">
         <span class="eyebrow hero__eyebrow">Free Estimate · No Obligation</span>
-        <h1>Get Your Free Junk Removal Quote in American Fork, UT</h1>
-        <p class="lede">
-          Tell us what you need hauled and we’ll get right back to you with an upfront price.
-          Prefer to talk? Call now — we answer 7 days a week.
-        </p>
+        <h1>{c.h1}</h1>
+        <p class="lede">{c.lede}</p>
 
         <a href={SITE.phone.tel} class="btn btn--call quote__call" data-call="contact-hero">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.24 1l-2.23 2.3Z"/></svg>
@@ -30,7 +25,7 @@ const description =
           <li>Free, no-obligation quotes</li>
           <li>Same-day &amp; next-day pickup</li>
           <li>Upfront, all-inclusive pricing</li>
-          <li>Serving {SITE.city}, {SITE.stateLong} {SITE.zip} &amp; nearby</li>
+          <li>{SITE.scope === 'state' ? `Serving cities across ${SITE.stateLong}` : `Serving ${SITE.region} ${SITE.nearbyLabel}`}</li>
         </ul>
 
         <p class="quote__hours">Open 7 days a week · 6:00am – 9:00pm</p>

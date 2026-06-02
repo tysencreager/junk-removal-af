@@ -9,7 +9,7 @@ import logo from '../assets/junkremoval-logo.png';
     <a href="/" class="brand" aria-label={`${SITE.businessName} home`}>
       <Image
         src={logo}
-        alt="American Fork Junk Removal logo"
+        alt={`${SITE.businessName} logo`}
         class="brand__img"
         width={130}
         height={100}
@@ -18,8 +18,8 @@ import logo from '../assets/junkremoval-logo.png';
         loading="eager"
       />
       <span class="brand__text">
-        <strong>American Fork</strong>
-        <span>Junk Removal</span>
+        <strong>{SITE.brand.line1}</strong>
+        <span>{SITE.brand.line2}</span>
       </span>
     </a>
 

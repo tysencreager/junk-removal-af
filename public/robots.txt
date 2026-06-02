@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-# Keep the post-conversion page out of the index.
-Disallow: /thank-you
-
-Sitemap: https://junkremovalamericanfork.com/sitemap-index.xml

@@ -8,11 +8,11 @@ export interface Props {
 
 const {
   heading = 'What We Take',
-  intro = 'From a single appliance to a whole-house cleanout, our American Fork crew hauls away just about anything non-hazardous. Common jobs include:',
+  intro = `From a single appliance to a whole-house cleanout, our ${SITE.regionShort} crew hauls away just about anything non-hazardous. Common jobs include:`,
 } = Astro.props;
 
 const current = Astro.url.pathname;
-const city = SITE.city;
+const region = SITE.regionShort;
 
 // Each category renders as an H3 (per required heading structure).
 const items = [
@@ -69,7 +69,7 @@ const items = [
             </span>
             <h3>{it.h3}</h3>
             <p>{it.body}</p>
-            {linkable && <span class="card__more">{it.h3} removal in {city} →</span>}
+            {linkable && <span class="card__more">{it.h3} removal in {region} →</span>}
           </Tag>
         );
       })}

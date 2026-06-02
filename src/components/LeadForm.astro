@@ -37,9 +37,12 @@ const redirectUrl = new URL(SITE.form.redirect, SITE.url).href;
   <!-- Formspree routing fields. Hidden so they never distract the visitor.
        `_next` redirects to the Thank You page (no-JS fallback); `_subject`
        sets the notification email subject. -->
-  <input type="hidden" name="_subject" value={`New Junk Removal Lead — ${source}`} />
+  <input type="hidden" name="_subject" value={`New ${SITE.regionShort} Junk Removal Lead — ${source}`} />
   <input type="hidden" name="_next" value={redirectUrl} />
   <input type="hidden" name="lead_source" value={source} />
+  <!-- Identifies which site/market the lead came from (all sites share one
+       Formspree form by default — see profiles/shared.ts). -->
+  <input type="hidden" name="site" value={SITE.businessName} />
   <!-- Honeypot for spam bots — Formspree silently drops any submit where this
        `_gotcha` field is filled. Real users never see it. -->
   <input type="text" name="_gotcha" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />

@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { SITE } from '../config/site';
 
-const title = 'Thank You | American Fork Junk Removal';
+const title = `Thank You | ${SITE.businessName}`;
 const description = 'Thanks — your junk removal request was received. We’ll reach out shortly.';
 ---
 
@@ -22,7 +22,7 @@ const description = 'Thanks — your junk removal request was received. We’ll 
       <h1>Thank You — Request Received!</h1>
       <p class="lede">
         Thanks for reaching out to {SITE.businessName}. A team member will contact you
-        shortly to confirm your free quote and schedule your {SITE.city} pickup.
+        shortly to confirm your free quote and schedule your {SITE.regionShort} pickup.
       </p>
 
       <p class="ty__rush">Need it gone right now? Call us and we’ll get moving:</p>

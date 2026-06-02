@@ -19,7 +19,9 @@ const pages = [
     <div>
       <p class="ft__name">{SITE.businessName}</p>
       <p class="ft__line">
-        Proudly serving {SITE.city}, {SITE.stateLong} {SITE.zip} and nearby Utah County.
+        {SITE.scope === 'state'
+          ? `Proudly serving homes and businesses across ${SITE.stateLong}.`
+          : `Proudly serving ${SITE.region} ${SITE.zip} ${SITE.nearbyLabel}.`}
       </p>
       <a class="ft__phone" href={SITE.phone.tel} data-call="footer">{SITE.phone.display}</a>
     </div>
@@ -31,7 +33,7 @@ const pages = [
 
   <div class="ft__bar">
     <div class="container">
-      <p>© {year} {SITE.businessName}. Locally owned & operated · Same-day junk removal in {SITE.city}, {SITE.stateLong}.</p>
+      <p>© {year} {SITE.businessName}. Locally owned & operated · Same-day junk removal in {SITE.region}.</p>
     </div>
   </div>
 </footer>

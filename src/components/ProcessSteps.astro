@@ -5,7 +5,7 @@ export interface Props {
   heading?: string;
 }
 
-const { heading = `How Our ${SITE.city} Hauling Process Works` } = Astro.props;
+const { heading = `How Our ${SITE.regionShort} Hauling Process Works` } = Astro.props;
 
 const steps = [
   {
@@ -16,7 +16,7 @@ const steps = [
   {
     n: '2',
     h3: 'We Show Up (Often Same Day)',
-    body: `Our insured ${SITE.city} crew arrives in your window, confirms the price, and does all the heavy lifting.`,
+    body: `Our insured ${SITE.regionShort} crew arrives in your window, confirms the price, and does all the heavy lifting.`,
   },
   {
     n: '3',

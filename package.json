@@ -8,6 +8,10 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:af": "SITE_KEY=americanfork astro build --outDir dist/americanfork",
+    "build:slc": "SITE_KEY=slc astro build --outDir dist/slc",
+    "build:utah": "SITE_KEY=utah astro build --outDir dist/utah",
+    "build:all": "npm run build:af && npm run build:slc && npm run build:utah",
     "preview": "astro preview",
     "gen:images": "node scripts/gen-images.mjs",
     "astro": "astro"

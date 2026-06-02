@@ -8,9 +8,7 @@ import CtaBand from '../components/CtaBand.astro';
 import LeadForm from '../components/LeadForm.astro';
 import { SITE } from '../config/site';
 
-const title = 'Appliance Removal American Fork UT | Same-Day Pickup';
-const description =
-  'Fast appliance removal in American Fork, Utah. We haul away old refrigerators, washers, dryers, stoves, and water heaters. Same-day pickup — free estimate!';
+const c = SITE.content.appliance;
 
 const appliances = [
   { h3: 'Refrigerator & Freezer Removal', body: 'Old, leaking, or dead fridges and chest freezers hauled out safely.' },
@@ -23,16 +21,16 @@ const appliances = [
 ---
 
 <Layout
-  title={title}
-  description={description}
+  title={c.title}
+  description={c.description}
   path="/appliance-removal"
   breadcrumb="Appliance Removal"
-  service={{ name: 'Appliance Removal', description }}
+  service={{ name: 'Appliance Removal', description: c.description }}
 >
   <Hero
-    eyebrow={`Same-Day Appliance Pickup in ${SITE.city}, ${SITE.state}`}
-    h1="Appliance Removal in American Fork, UT"
-    lede="Got a dead fridge or an old washer taking up space? We haul away heavy appliances across American Fork — fast, insured, and same-day. You don’t lift a finger."
+    eyebrow={c.eyebrow}
+    h1={c.h1}
+    lede={c.lede}
     bullets={['Heavy Lifting Included', 'Same-Day Pickup', 'Eco-Friendly Disposal']}
     formHeading="Get Your Appliance Hauled Today"
     formSource="appliance-hero"
@@ -43,10 +41,10 @@ const appliances = [
   <section class="section" aria-labelledby="app-h">
     <div class="container">
       <span class="eyebrow">Appliances We Haul Away</span>
-      <h2 id="app-h">American Fork Appliance Removal &amp; Disposal</h2>
+      <h2 id="app-h">{SITE.regionShort} Appliance Removal &amp; Disposal</h2>
       <p class="lede">
         From a single old refrigerator to a full kitchen’s worth of outdated units, our
-        {' '}{SITE.city} crew does all the heavy lifting and responsible disposal for you.
+        {' '}{SITE.regionShort} crew does all the heavy lifting and responsible disposal for you.
       </p>
       <div class="grid grid--3" style="margin-top: 26px;">
         {appliances.map((a) => (
@@ -59,7 +57,7 @@ const appliances = [
     </div>
   </section>
 
-  <ProcessSteps heading={`How Appliance Removal Works in ${SITE.city}`} />
+  <ProcessSteps heading={`How Appliance Removal Works in ${SITE.regionShort}`} />
 
   <section class="section section--mist">
     <div class="container narrow">
@@ -74,7 +72,7 @@ const appliances = [
 
   <AreasServed />
 
-  <CtaBand heading={`Old Appliance to Get Rid Of in ${SITE.city}?`} />
+  <CtaBand heading={`Old Appliance to Get Rid Of in ${SITE.regionShort}?`} />
 </Layout>
 
 <style>

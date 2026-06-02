@@ -36,9 +36,16 @@ const rawPath = path ?? Astro.url.pathname;
 const normalizedPath = rawPath.endsWith('/') ? rawPath : `${rawPath}/`;
 const canonical = new URL(normalizedPath, SITE.url).href;
 
-const ogImage = new URL('/og-image.png', SITE.url).href;
+const ogImage = new URL(SITE.ogImage, SITE.url).href;
 const businessId = `${SITE.url}/#business`;
 const websiteId = `${SITE.url}/#website`;
+
+// areaServed target for this market (a City, or the whole State).
+const areaServed = {
+  '@type': SITE.areaServed.type,
+  name: SITE.areaServed.name,
+  ...(SITE.areaServed.wikidata ? { '@id': SITE.areaServed.wikidata } : {}),
+};
 
 // ── Structured data (@graph) ────────────────────────────────────────────────
 // HomeAndConstructionBusiness is the primary local entity. areaServed locks to
@@ -72,11 +79,7 @@ const graph: Record<string, unknown>[] = [
       latitude: SITE.geo.lat,
       longitude: SITE.geo.lng,
     },
-    areaServed: {
-      '@type': 'City',
-      name: `${SITE.city}, ${SITE.stateLong}`,
-      '@id': 'https://www.wikidata.org/wiki/Q749477',
-    },
+    areaServed,
     serviceArea: {
       '@type': 'GeoCircle',
       geoMidpoint: {
@@ -84,7 +87,7 @@ const graph: Record<string, unknown>[] = [
         latitude: SITE.geo.lat,
         longitude: SITE.geo.lng,
       },
-      geoRadius: 16000,
+      geoRadius: SITE.serviceRadius,
     },
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
@@ -150,10 +153,7 @@ if (service) {
     description: service.description ?? description,
     serviceType: service.name,
     provider: { '@id': businessId },
-    areaServed: {
-      '@type': 'City',
-      name: `${SITE.city}, ${SITE.stateLong}`,
-    },
+    areaServed,
   });
 }
 
