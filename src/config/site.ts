@@ -18,8 +18,10 @@ const PHONE_RAW = '+18017080084'; // swap here for a CallRail/Twilio tracking nu
 const PHONE_DISPLAY = '(801) 708-0084'; // keep in sync with the number above
 
 export const SITE = {
-  // Used for canonical URLs, sitemap, and schema. Update to the live domain.
-  url: 'https://www.americanforkjunkremoval.com',
+  // Primary (canonical) domain — drives canonical URLs, sitemap, and schema.
+  // Other domains pointing here (junkremovalslc.com, junkremovalservicesutah.com)
+  // should 301-redirect to this one at the host level (see README → Domains).
+  url: 'https://junkremovalamericanfork.com',
 
   businessName: 'American Fork Junk Removal',
   legalName: 'American Fork Junk Removal',

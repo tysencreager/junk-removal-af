@@ -91,6 +91,39 @@ so one `/thank-you` view = one captured lead.
 
 ---
 
+## Domains (important for SEO)
+
+**Primary / canonical domain:** `https://junkremovalamericanfork.com`
+
+This is set in `SITE.url` (`src/config/site.ts`) and drives every canonical
+URL, the sitemap, and all schema. Every page tells Google the canonical version
+lives on this domain — so even when another domain serves the same content,
+ranking signals consolidate here instead of being split as duplicate content.
+
+**The other domains pointing at this site must 301-redirect to the primary:**
+
+- `junkremovalslc.com` → `https://junkremovalamericanfork.com`
+- `junkremovalservicesutah.com` → `https://junkremovalamericanfork.com`
+
+Set this up in **Cloudflare → your domain → Rules → Redirect Rules** (or Bulk
+Redirects): match `Hostname equals junkremovalslc.com`, action **301** to
+`https://junkremovalamericanfork.com${path}` (preserve path & query). Repeat for
+the second domain. A 301 is the strongest signal and avoids any duplicate-content
+ambiguity; the canonical tags are the in-page backup.
+
+> ⚠️ Do **not** add the secondary domains as additional custom domains on the
+> Cloudflare Pages project without a redirect — that would serve identical
+> content on all three hostnames. Attach only the primary to Pages; route the
+> others through Redirect Rules.
+>
+> Strategic note: `junkremovalslc.com` (Salt Lake City) and
+> `junkremovalservicesutah.com` (statewide) are strong exact-match domains for
+> *different* markets. Long-term they'll capture far more traffic as their own
+> localized sites/landing pages than as redirects to an American Fork page.
+> Redirecting is the correct interim move; building them out is the upside.
+
+---
+
 ## Pages
 
 | Route                 | Purpose                          | Target keyword                  |

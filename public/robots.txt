@@ -4,4 +4,4 @@ Allow: /
 # Keep the post-conversion page out of the index.
 Disallow: /thank-you
 
-Sitemap: https://www.americanforkjunkremoval.com/sitemap-index.xml
+Sitemap: https://junkremovalamericanfork.com/sitemap-index.xml
