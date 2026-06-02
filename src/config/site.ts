@@ -44,10 +44,7 @@ export const SITE = {
 
   // Lead-capture form routing — Formspree.
   form: {
-    // Your Formspree endpoint. Create a form at https://formspree.io and paste
-    // its ID here (Forms → your form → the URL ends in /f/XXXXXXXX).
-    // TODO: replace `xxxxxxxx` with your real Formspree form ID.
-    endpoint: 'https://formspree.io/f/xxxxxxxx',
+    endpoint: 'https://formspree.io/f/xrednnvq',
     // Visitors land here after a successful submit (fire conversion pixel here).
     redirect: '/thank-you',
   },
