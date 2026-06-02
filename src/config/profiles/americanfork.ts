@@ -28,7 +28,8 @@ export const americanfork: SiteProfile = {
   priceRange: '$$',
 
   phone: SHARED_PHONE,
-  form: SHARED_FORM,
+  form: SHARED_FORM, // Formspree: xrednnvq
+  gaId: 'G-XXXXXXXXXX', // TODO: American Fork GA4 Measurement ID
 
   areasServed: [
     'Downtown American Fork',

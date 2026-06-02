@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import WhatWeTake from '../components/WhatWeTake.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Reviews from '../components/Reviews.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../config/site';
+import { UTAH_CITIES } from '../config/cities';
+import type { UtahCity } from '../config/cities';
+
+// Only the statewide site emits city landing pages. On the city-scoped sites
+// (American Fork, SLC) this returns no paths, so the route doesn't exist there.
+export async function getStaticPaths() {
+  if (SITE.scope !== 'state') return [];
+  return UTAH_CITIES.map((c) => ({ params: { city: c.slug }, props: { city: c } }));
+}
+
+interface Props {
+  city: UtahCity;
+}
+const { city } = Astro.props as Props;
+
+const validSlugs = new Set(UTAH_CITIES.map((c) => c.slug));
+const nearby = city.nearby
+  .filter((s) => validSlugs.has(s))
+  .map((s) => UTAH_CITIES.find((c) => c.slug === s)!);
+
+const title = `Junk Removal ${city.name} UT | Same-Day Hauling & Free Estimate`;
+const description = `Fast, affordable junk removal in ${city.name}, Utah. We haul furniture, appliances, yard waste, and construction debris — same-day pickup. Call for a free estimate!`;
+
+const faqs = [
+  {
+    q: `How much does junk removal cost in ${city.name}, UT?`,
+    a: `Junk removal in ${city.name} is priced by how much space your items take up in the truck — from single-item pickups to full truckloads. You get an upfront, all-inclusive price before we start. Call ${SITE.phone.display} for a free estimate.`,
+  },
+  {
+    q: `Do you offer same-day junk removal in ${city.name}?`,
+    a: `Yes — we offer same-day and next-day pickup throughout ${city.name} and ${city.county} whenever our schedule allows. Call early in the day for the best chance at same-day service.`,
+  },
+  {
+    q: `What items do you take in ${city.name}?`,
+    a: `We haul almost anything non-hazardous: furniture, appliances, mattresses, yard waste, construction debris, electronics, hot tubs, and full garage, basement, or estate cleanouts. We can't take hazardous materials like paint, chemicals, or asbestos.`,
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  path={`/${city.slug}`}
+  breadcrumb={`${city.name} Junk Removal`}
+  service={{ name: `Junk Removal in ${city.name}`, description }}
+  faq={faqs}
+>
+  <Hero
+    eyebrow={`★★★★★  Same-Day Junk Removal in ${city.name}, UT`}
+    h1={`Junk Removal in ${city.name}, UT`}
+    lede={city.blurb}
+    formHeading={`Get a Free ${city.name} Quote`}
+    formSource={`city-${city.slug}-hero`}
+  />
+
+  <TrustBadges />
+
+  <WhatWeTake
+    heading={`What We Haul in ${city.name}`}
+    intro={`From a single appliance to a whole-house cleanout, our ${city.name} crew takes just about anything non-hazardous. Common jobs include:`}
+  />
+
+  <ProcessSteps heading={`How Junk Removal Works in ${city.name}`} />
+
+  <section class="section section--mist" aria-labelledby="hoods-h">
+    <div class="container">
+      <span class="eyebrow">Neighborhoods We Serve</span>
+      <h2 id="hoods-h">Junk Removal Across {city.name}, UT</h2>
+      <p class="lede">
+        We haul junk throughout {city.name} and {city.county}. If you’re nearby, we can
+        usually be there the same day.
+      </p>
+      <ul class="hoods">
+        {city.neighborhoods.map((n) => (
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+            {n}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Reviews />
+
+  {nearby.length > 0 && (
+    <section class="section" aria-labelledby="nearby-h">
+      <div class="container">
+        <span class="eyebrow">Nearby Cities</span>
+        <h2 id="nearby-h">We Also Serve Cities Near {city.name}</h2>
+        <ul class="nearby">
+          {nearby.map((n) => (
+            <li><a href={`/${n.slug}`}>Junk Removal in {n.name} →</a></li>
+          ))}
+          <li><a href="/">All Utah service areas →</a></li>
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <Faq heading={`${city.name} Junk Removal FAQs`} items={faqs} />
+
+  <CtaBand heading={`Ready to Get That Junk Gone in ${city.name}?`} />
+</Layout>
+
+<style>
+  .hoods {
+    list-style: none;
+    padding: 0;
+    margin: 22px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 18px;
+  }
+  @media (min-width: 720px) { .hoods { grid-template-columns: repeat(3, 1fr); } }
+  .hoods li { display: flex; align-items: center; gap: 8px; color: var(--slate); font-weight: 600; }
+  .hoods li svg { width: 18px; height: 18px; color: var(--green); flex: none; }
+
+  .nearby { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 10px; }
+  @media (min-width: 720px) { .nearby { grid-template-columns: 1fr 1fr; } }
+  .nearby a { font-weight: 700; color: var(--green-dark); text-decoration: none; }
+  .nearby a:hover { text-decoration: underline; }
+</style>

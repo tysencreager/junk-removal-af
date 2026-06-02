@@ -169,6 +169,9 @@ if (faq && faq.length) {
 }
 
 const schema = { '@context': 'https://schema.org', '@graph': graph };
+
+// GA4 loads only when a real Measurement ID is set on the active profile.
+const gaEnabled = SITE.gaId && SITE.gaId !== 'G-XXXXXXXXXX';
 ---
 
 <!doctype html>
@@ -210,6 +213,18 @@ const schema = { '@context': 'https://schema.org', '@graph': graph };
     <meta name="geo.placename" content={`${SITE.city}, ${SITE.stateLong}`} />
 
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    {gaEnabled && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaId}`}></script>
+        <script is:inline define:vars={{ gaId: SITE.gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
   </head>
   <body>
     <Header />

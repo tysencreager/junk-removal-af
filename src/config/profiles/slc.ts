@@ -1,5 +1,5 @@
 import type { SiteProfile } from '../types';
-import { SHARED_PHONE, SHARED_FORM } from './shared';
+import { SHARED_PHONE } from './shared';
 
 export const slc: SiteProfile = {
   key: 'slc',
@@ -28,7 +28,8 @@ export const slc: SiteProfile = {
   priceRange: '$$',
 
   phone: SHARED_PHONE,
-  form: SHARED_FORM,
+  form: { endpoint: 'https://formspree.io/f/xbdergae', redirect: '/thank-you' },
+  gaId: 'G-XXXXXXXXXX', // TODO: Salt Lake City GA4 Measurement ID
 
   areasServed: [
     'Downtown Salt Lake City',

@@ -1,0 +1,52 @@
+---
+import { UTAH_CITIES } from '../config/cities';
+---
+
+<section class="section section--mist" aria-labelledby="cities-h">
+  <div class="container">
+    <span class="eyebrow">Utah Cities We Serve</span>
+    <h2 id="cities-h">Junk Removal Across Utah — Find Your City</h2>
+    <p class="lede">
+      Same-day junk removal in cities up and down the Wasatch Front and beyond.
+      Pick your city for local details:
+    </p>
+
+    <ul class="cities">
+      {UTAH_CITIES.map((c) => (
+        <li>
+          <a href={`/${c.slug}`}>
+            <strong>{c.name}</strong>
+            <span>{c.county}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cities {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 720px) { .cities { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 980px) { .cities { grid-template-columns: repeat(4, 1fr); } }
+  .cities a {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .cities a:hover { border-color: var(--green); box-shadow: var(--shadow); }
+  .cities strong { font-size: 1.02rem; }
+  .cities span { font-size: 0.82rem; color: var(--slate); }
+</style>

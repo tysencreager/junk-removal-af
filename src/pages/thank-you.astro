@@ -4,15 +4,27 @@ import { SITE } from '../config/site';
 
 const title = `Thank You | ${SITE.businessName}`;
 const description = 'Thanks — your junk removal request was received. We’ll reach out shortly.';
+
+// This page loads only after a successful form submission, so firing a GA4
+// event here = one captured lead. `generate_lead` is a GA4 recommended event;
+// mark it as a Key Event (conversion) in GA4 → Admin → Events.
+const gaEnabled = SITE.gaId && SITE.gaId !== 'G-XXXXXXXXXX';
 ---
 
 <Layout title={title} description={description} path="/thank-you" noindex={true}>
-  <!--
-    CONVERSION TRACKING:
-    Fire your conversion pixels here (Google Ads, GA4, Meta, etc.).
-    This page loads only after a successful form submission, so a pageview /
-    event on /thank-you = one captured lead. Add tags in the block below.
-  -->
+  {gaEnabled && (
+    <script is:inline define:vars={{ site: SITE.businessName }}>
+      // gtag() is defined by the GA4 base tag in Layout; events queue until it loads.
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('event', 'generate_lead', {
+        currency: 'USD',
+        value: 0,
+        site: site,
+        form_destination: location.hostname,
+      });
+    </script>
+  )}
 
   <section class="ty">
     <div class="container ty__inner">
@@ -35,11 +47,8 @@ const description = 'Thanks — your junk removal request was received. We’ll 
     </div>
   </section>
 
-  <!-- Example conversion tag placeholder — replace with your real pixel(s):
-  <script>
-    // gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/XXXXXXXX' });
-  </script>
-  -->
+  <!-- GA4 `generate_lead` fires above. To also track a Google Ads conversion,
+       add: gtag('event','conversion',{ send_to:'AW-XXXXXXXXX/XXXXXXXX' }); -->
 </Layout>
 
 <style>

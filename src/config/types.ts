@@ -68,6 +68,10 @@ export interface SiteProfile {
 
   form: { endpoint: string; redirect: string };
 
+  /** GA4 Measurement ID (e.g. "G-XXXXXXXXXX"). Leave as the placeholder to
+   *  disable analytics for this site. */
+  gaId: string;
+
   areasServed: string[];
 
   /** Pre-rendered social/share image for this site (in /public). */

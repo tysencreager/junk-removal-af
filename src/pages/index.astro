@@ -6,6 +6,7 @@ import WhatWeTake from '../components/WhatWeTake.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import Reviews from '../components/Reviews.astro';
 import AreasServed from '../components/AreasServed.astro';
+import CitiesGrid from '../components/CitiesGrid.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { SITE } from '../config/site';
@@ -27,6 +28,8 @@ const c = SITE.content.home;
   <Reviews />
 
   <AreasServed />
+
+  {SITE.scope === 'state' && <CitiesGrid />}
 
   <Faq heading={c.faqHeading} items={c.faqs} />
 
