@@ -8,9 +8,9 @@ import CtaBand from '../components/CtaBand.astro';
 import LeadForm from '../components/LeadForm.astro';
 import { SITE } from '../config/site';
 
-const title = 'Appliance Removal American Fork UT | Same-Day Pickup & Haul Away';
+const title = 'Appliance Removal American Fork UT | Same-Day Pickup';
 const description =
-  'Fast appliance removal in American Fork, Utah. We haul away old refrigerators, washers, dryers, stoves, and water heaters — same-day pickup. Call now for a free estimate!';
+  'Fast appliance removal in American Fork, Utah. We haul away old refrigerators, washers, dryers, stoves, and water heaters. Same-day pickup — free estimate!';
 
 const appliances = [
   { h3: 'Refrigerator & Freezer Removal', body: 'Old, leaking, or dead fridges and chest freezers hauled out safely.' },
@@ -22,7 +22,13 @@ const appliances = [
 ];
 ---
 
-<Layout title={title} description={description} path="/appliance-removal">
+<Layout
+  title={title}
+  description={description}
+  path="/appliance-removal"
+  breadcrumb="Appliance Removal"
+  service={{ name: 'Appliance Removal', description }}
+>
   <Hero
     eyebrow={`Same-Day Appliance Pickup in ${SITE.city}, ${SITE.state}`}
     h1="Appliance Removal in American Fork, UT"

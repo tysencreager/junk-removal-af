@@ -8,9 +8,9 @@ import CtaBand from '../components/CtaBand.astro';
 import LeadForm from '../components/LeadForm.astro';
 import { SITE } from '../config/site';
 
-const title = 'Furniture Removal & Disposal American Fork UT | Same-Day Haul Away';
+const title = 'Furniture Removal American Fork UT | Same-Day Pickup';
 const description =
-  'Need furniture disposal in American Fork, Utah? We remove couches, mattresses, dressers, and old furniture — same-day pickup and donation. Call now for a free estimate!';
+  'Need furniture disposal in American Fork, Utah? We remove couches, mattresses, dressers, and old furniture. Same-day pickup and donation — free estimate!';
 
 const items = [
   { h3: 'Couch & Sofa Removal', body: 'Sectionals, sleeper sofas, loveseats, and recliners carried out for you.' },
@@ -22,7 +22,13 @@ const items = [
 ];
 ---
 
-<Layout title={title} description={description} path="/furniture-removal">
+<Layout
+  title={title}
+  description={description}
+  path="/furniture-removal"
+  breadcrumb="Furniture Removal"
+  service={{ name: 'Furniture Removal', description }}
+>
   <Hero
     eyebrow={`Same-Day Furniture Pickup in ${SITE.city}, ${SITE.state}`}
     h1="Furniture Removal in American Fork, UT"

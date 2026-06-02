@@ -8,9 +8,9 @@ import AreasServed from '../components/AreasServed.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { SITE } from '../config/site';
 
-const title = 'Junk & Debris Removal Services in American Fork UT | Full-Service Hauling';
+const title = 'Junk & Debris Removal American Fork UT | Full-Service Hauling';
 const description =
-  'Full-service junk and debris removal in American Fork, Utah. Furniture, appliances, yard waste, construction debris, and full property cleanouts. Same-day hauling — call for a free estimate!';
+  'Full-service junk & debris removal in American Fork, Utah. Furniture, appliances, yard waste, construction debris, and full property cleanouts. Same-day hauling — free estimate!';
 
 const services = [
   { h3: 'Residential Junk Removal', body: 'Single items to whole-house cleanouts for American Fork homeowners and renters.' },
@@ -22,7 +22,13 @@ const services = [
 ];
 ---
 
-<Layout title={title} description={description} path="/services">
+<Layout
+  title={title}
+  description={description}
+  path="/services"
+  breadcrumb="Services"
+  service={{ name: 'Junk & Debris Removal', description }}
+>
   <Hero
     eyebrow={`Full-Service Hauling in ${SITE.city}, ${SITE.state}`}
     h1="Junk & Debris Removal Services in American Fork, UT"

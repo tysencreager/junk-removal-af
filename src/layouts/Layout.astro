@@ -10,94 +10,201 @@ export interface Props {
   description: string;
   /** Path for the canonical URL, e.g. "/services". Defaults to current path. */
   path?: string;
-  /** Set false on the thank-you page so it is not indexed. */
+  /** Set true to keep a page out of the index (e.g. the thank-you page). */
   noindex?: boolean;
+  /** Short name of this page for the breadcrumb trail (omit on the homepage). */
+  breadcrumb?: string;
+  /** Adds a Service schema node for service-specific pages. */
+  service?: { name: string; description?: string };
+  /** Adds an FAQPage schema node. Should mirror the visible on-page FAQ. */
+  faq?: { q: string; a: string }[];
 }
 
-const { title, description, path, noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  path,
+  noindex = false,
+  breadcrumb,
+  service,
+  faq,
+} = Astro.props;
+
 // Normalize to a trailing slash so canonicals match the directory-style URLs
 // the CDN serves (and the trailing-slash form in sitemap-0.xml).
 const rawPath = path ?? Astro.url.pathname;
 const normalizedPath = rawPath.endsWith('/') ? rawPath : `${rawPath}/`;
 const canonical = new URL(normalizedPath, SITE.url).href;
 
-// ── HomeAndConstructionBusiness JSON-LD ──────────────────────────────────────
-// Strict local schema. areaServed locks to American Fork, Utah (ZIP 84003).
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'HomeAndConstructionBusiness',
-  '@id': `${SITE.url}/#business`,
-  name: SITE.businessName,
-  legalName: SITE.legalName,
-  url: SITE.url,
-  telephone: SITE.phone.raw,
-  priceRange: SITE.priceRange,
-  description,
-  image: `${SITE.url}/og-image.svg`,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: SITE.city,
-    addressRegion: SITE.state,
-    postalCode: SITE.zip,
-    addressCountry: 'US',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: SITE.geo.lat,
-    longitude: SITE.geo.lng,
-  },
-  areaServed: {
-    '@type': 'City',
-    name: `${SITE.city}, ${SITE.stateLong}`,
-    '@id': 'https://www.wikidata.org/wiki/Q749477',
-  },
-  serviceArea: {
-    '@type': 'GeoCircle',
-    geoMidpoint: {
+const ogImage = new URL('/og-image.png', SITE.url).href;
+const businessId = `${SITE.url}/#business`;
+const websiteId = `${SITE.url}/#website`;
+
+// ── Structured data (@graph) ────────────────────────────────────────────────
+// HomeAndConstructionBusiness is the primary local entity. areaServed locks to
+// American Fork, Utah (ZIP 84003). NOTE: no aggregateRating/Review markup until
+// real, verifiable customer reviews exist — fabricated review snippets violate
+// Google's structured-data policies and risk a manual action.
+const graph: Record<string, unknown>[] = [
+  {
+    '@type': ['HomeAndConstructionBusiness', 'LocalBusiness'],
+    '@id': businessId,
+    name: SITE.businessName,
+    legalName: SITE.legalName,
+    url: SITE.url,
+    telephone: SITE.phone.raw,
+    priceRange: SITE.priceRange,
+    description: SITE.tagline,
+    image: ogImage,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/logo.png', SITE.url).href,
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: SITE.city,
+      addressRegion: SITE.state,
+      postalCode: SITE.zip,
+      addressCountry: 'US',
+    },
+    geo: {
       '@type': 'GeoCoordinates',
       latitude: SITE.geo.lat,
       longitude: SITE.geo.lng,
     },
-    geoRadius: 16000,
+    areaServed: {
+      '@type': 'City',
+      name: `${SITE.city}, ${SITE.stateLong}`,
+      '@id': 'https://www.wikidata.org/wiki/Q749477',
+    },
+    serviceArea: {
+      '@type': 'GeoCircle',
+      geoMidpoint: {
+        '@type': 'GeoCoordinates',
+        latitude: SITE.geo.lat,
+        longitude: SITE.geo.lng,
+      },
+      geoRadius: 16000,
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '06:00',
+      closes: '21:00',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: `Junk Removal Services in ${SITE.city}, ${SITE.state}`,
+      itemListElement: [
+        'Junk Removal',
+        'Appliance Removal',
+        'Furniture Removal',
+        'Yard Waste Hauling',
+        'Construction Debris Removal',
+      ].map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s },
+      })),
+    },
   },
-  openingHours: SITE.hours,
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '127',
+  {
+    '@type': 'WebSite',
+    '@id': websiteId,
+    url: SITE.url,
+    name: SITE.businessName,
+    publisher: { '@id': businessId },
+    inLanguage: 'en-US',
   },
-  makesOffer: [
-    'Junk Removal',
-    'Appliance Removal',
-    'Furniture Removal',
-    'Yard Waste Hauling',
-    'Construction Debris Removal',
-  ].map((s) => ({
-    '@type': 'Offer',
-    itemOffered: { '@type': 'Service', name: s },
-  })),
-};
+  {
+    '@type': 'WebPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: title,
+    description,
+    isPartOf: { '@id': websiteId },
+    about: { '@id': businessId },
+    inLanguage: 'en-US',
+    primaryImageOfPage: ogImage,
+  },
+];
+
+// Breadcrumb trail: Home › [current page].
+const crumbs = [{ name: 'Home', url: `${SITE.url}/` }];
+if (breadcrumb) crumbs.push({ name: breadcrumb, url: canonical });
+if (crumbs.length > 1) {
+  graph.push({
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      item: c.url,
+    })),
+  });
+}
+
+if (service) {
+  graph.push({
+    '@type': 'Service',
+    name: service.name,
+    description: service.description ?? description,
+    serviceType: service.name,
+    provider: { '@id': businessId },
+    areaServed: {
+      '@type': 'City',
+      name: `${SITE.city}, ${SITE.stateLong}`,
+    },
+  });
+}
+
+if (faq && faq.length) {
+  graph.push({
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
+
+const schema = { '@context': 'https://schema.org', '@graph': graph };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#16803c" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/logo.png" />
     <link rel="canonical" href={canonical} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
+    />
 
-    <!-- Open Graph (kept minimal) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.businessName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.businessName} — ${SITE.tagline}`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <meta name="geo.region" content="US-UT" />
     <meta name="geo.placename" content={`${SITE.city}, ${SITE.stateLong}`} />

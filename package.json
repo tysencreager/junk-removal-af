@@ -9,6 +9,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "gen:images": "node scripts/gen-images.mjs",
     "astro": "astro"
   },
   "dependencies": {

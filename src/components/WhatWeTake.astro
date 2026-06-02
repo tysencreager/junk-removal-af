@@ -1,4 +1,6 @@
 ---
+import { SITE } from '../config/site';
+
 export interface Props {
   heading?: string;
   intro?: string;
@@ -9,17 +11,22 @@ const {
   intro = 'From a single appliance to a whole-house cleanout, our American Fork crew hauls away just about anything non-hazardous. Common jobs include:',
 } = Astro.props;
 
+const current = Astro.url.pathname;
+const city = SITE.city;
+
 // Each category renders as an H3 (per required heading structure).
 const items = [
   {
     h3: 'Appliances',
     body: 'Refrigerators, washers, dryers, dishwashers, stoves, and water heaters.',
     path: 'M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm2 3v3h8V6H8Zm0 5v6h8v-6H8Z',
+    href: '/appliance-removal',
   },
   {
     h3: 'Furniture',
     body: 'Couches, sectionals, mattresses, dressers, tables, and office furniture.',
     path: 'M4 10a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v1a2 2 0 0 0-2 2v2H6v-2a2 2 0 0 0-2-2v-1Zm-1 5h18v3h-2v-1H5v1H3v-3Z',
+    href: '/furniture-removal',
   },
   {
     h3: 'Yard Waste',
@@ -51,15 +58,21 @@ const items = [
     <p class="lede">{intro}</p>
 
     <div class="grid grid--3" style="margin-top: 26px;">
-      {items.map((it) => (
-        <div class="card">
-          <span class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d={it.path} /></svg>
-          </span>
-          <h3>{it.h3}</h3>
-          <p>{it.body}</p>
-        </div>
-      ))}
+      {items.map((it) => {
+        // Link the card to its dedicated service page, but never self-link.
+        const linkable = it.href && !current.startsWith(it.href);
+        const Tag = linkable ? 'a' : 'div';
+        return (
+          <Tag class:list={['card', { 'card--link': linkable }]} href={linkable ? it.href : undefined}>
+            <span class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d={it.path} /></svg>
+            </span>
+            <h3>{it.h3}</h3>
+            <p>{it.body}</p>
+            {linkable && <span class="card__more">{it.h3} removal in {city} →</span>}
+          </Tag>
+        );
+      })}
     </div>
 
     <p class="take__note">
@@ -69,6 +82,24 @@ const items = [
 </section>
 
 <style>
+  a.card--link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.06s ease;
+  }
+  a.card--link:hover {
+    border-color: var(--green);
+    box-shadow: var(--shadow);
+  }
+  a.card--link:active { transform: translateY(1px); }
+  .card__more {
+    display: inline-block;
+    margin-top: 12px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--green-dark);
+  }
   .take__note {
     margin-top: 22px;
     color: var(--slate);
