@@ -14,8 +14,8 @@
  * can fire. See README.md for wiring instructions.
  */
 
-const PHONE_RAW = '+18015550199'; // TODO: replace with CallRail/Twilio tracking number
-const PHONE_DISPLAY = '(801) 555-0199'; // TODO: replace to match the tracking number above
+const PHONE_RAW = '+18017080084'; // swap here for a CallRail/Twilio tracking number later
+const PHONE_DISPLAY = '(801) 708-0084'; // keep in sync with the number above
 
 export const SITE = {
   // Used for canonical URLs, sitemap, and schema. Update to the live domain.

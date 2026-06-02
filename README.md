@@ -36,8 +36,8 @@ tracking number, edit only these two lines — every `tel:` link and on-page
 number across all pages updates automatically:
 
 ```ts
-const PHONE_RAW = '+18015550199';      // E.164, used in tel: links
-const PHONE_DISPLAY = '(801) 555-0199'; // shown on the page
+const PHONE_RAW = '+18017080084';      // E.164, used in tel: links
+const PHONE_DISPLAY = '(801) 708-0084'; // shown on the page
 ```
 
 Every phone instance on the site is already a clickable `tel:` link, and each is
