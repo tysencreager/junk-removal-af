@@ -1,5 +1,4 @@
 import type { SiteProfile } from '../types';
-import { SHARED_PHONE } from './shared';
 
 export const slc: SiteProfile = {
   key: 'slc',
@@ -27,7 +26,7 @@ export const slc: SiteProfile = {
   hours: 'Mo-Su 06:00-21:00',
   priceRange: '$$',
 
-  phone: SHARED_PHONE,
+  phone: { raw: '+18015164796', display: '(801) 516-4796' },
   form: { endpoint: 'https://formspree.io/f/xbdergae', redirect: '/thank-you' },
   gaId: 'G-XXXXXXXXXX', // TODO: Salt Lake City GA4 Measurement ID
 
@@ -80,7 +79,7 @@ export const slc: SiteProfile = {
       faqs: [
         {
           q: 'How much does junk removal cost in Salt Lake City, UT?',
-          a: 'Most Salt Lake City junk removal jobs are priced by how much space your items take up in the truck, from single-item pickups up to full truckloads. We give you an upfront, all-inclusive price before we start — no hidden fees. Call (801) 708-0084 for a free estimate.',
+          a: 'Most Salt Lake City junk removal jobs are priced by how much space your items take up in the truck, from single-item pickups up to full truckloads. We give you an upfront, all-inclusive price before we start — no hidden fees. Call (801) 516-4796 for a free estimate.',
         },
         {
           q: 'Do you offer same-day junk removal?',

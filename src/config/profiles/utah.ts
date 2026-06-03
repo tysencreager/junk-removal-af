@@ -1,5 +1,4 @@
 import type { SiteProfile } from '../types';
-import { SHARED_PHONE } from './shared';
 
 export const utah: SiteProfile = {
   key: 'utah',
@@ -28,7 +27,7 @@ export const utah: SiteProfile = {
   hours: 'Mo-Su 06:00-21:00',
   priceRange: '$$',
 
-  phone: SHARED_PHONE,
+  phone: { raw: '+18014412533', display: '(801) 441-2533' },
   form: { endpoint: 'https://formspree.io/f/xjgdbyen', redirect: '/thank-you' },
   gaId: 'G-XXXXXXXXXX', // TODO: Utah GA4 Measurement ID
 
@@ -81,7 +80,7 @@ export const utah: SiteProfile = {
       faqs: [
         {
           q: 'How much does junk removal cost in Utah?',
-          a: 'Most junk removal jobs are priced by how much space your items take up in the truck, from single-item pickups up to full truckloads. We give you an upfront, all-inclusive price before we start — no hidden fees. Call (801) 708-0084 for a free estimate.',
+          a: 'Most junk removal jobs are priced by how much space your items take up in the truck, from single-item pickups up to full truckloads. We give you an upfront, all-inclusive price before we start — no hidden fees. Call (801) 441-2533 for a free estimate.',
         },
         {
           q: 'Do you offer same-day junk removal?',
