@@ -24,7 +24,9 @@ const PROFILES: Record<string, SiteProfile> = {
   utah,
 };
 
-const key = process.env.SITE_KEY ?? 'americanfork';
+// Normalize so case/whitespace in the SITE_KEY env var can't break a build
+// (e.g. "Utah" or " utah " both resolve to the `utah` profile).
+const key = (process.env.SITE_KEY ?? 'americanfork').trim().toLowerCase();
 const profile = PROFILES[key];
 
 if (!profile) {
