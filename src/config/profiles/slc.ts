@@ -27,7 +27,7 @@ export const slc: SiteProfile = {
   priceRange: '$$',
 
   phone: { raw: '+18015164796', display: '(801) 516-4796' },
-  form: { endpoint: 'https://formspree.io/f/xbdergae', redirect: '/thank-you' },
+  form: { endpoint: 'https://formspree.io/f/xbdergae', redirect: '/thank-you/' },
   gaId: 'G-XXXXXXXXXX', // TODO: Salt Lake City GA4 Measurement ID
 
   areasServed: [
