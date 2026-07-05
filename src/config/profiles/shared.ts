@@ -14,5 +14,5 @@ export const SHARED_PHONE = { raw: '+18017080084', display: '(801) 708-0084' };
 
 export const SHARED_FORM = {
   endpoint: 'https://formspree.io/f/xrednnvq',
-  redirect: '/thank-you',
+  redirect: '/thank-you/',
 };

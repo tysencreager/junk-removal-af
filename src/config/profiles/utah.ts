@@ -28,7 +28,7 @@ export const utah: SiteProfile = {
   priceRange: '$$',
 
   phone: { raw: '+18014412533', display: '(801) 441-2533' },
-  form: { endpoint: 'https://formspree.io/f/xjgdbyen', redirect: '/thank-you' },
+  form: { endpoint: 'https://formspree.io/f/xjgdbyen', redirect: '/thank-you/' },
   gaId: 'G-XXXXXXXXXX', // TODO: Utah GA4 Measurement ID
 
   areasServed: [

@@ -8,7 +8,10 @@ import { SITE } from './src/config/site.ts';
 export default defineConfig({
   site: SITE.url,
   output: 'static',
-  trailingSlash: 'ignore',
+  // One canonical URL form everywhere (links, canonicals, sitemap). The CDN
+  // serves directory-style URLs, so the slashed form is the one that resolves
+  // without a redirect — 'always' keeps Google from crawling redirect variants.
+  trailingSlash: 'always',
   integrations: [
     sitemap({
       // Keep the noindex thank-you page out of the sitemap.
