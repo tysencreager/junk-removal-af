@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../config/site';
+
+const title = `Page Not Found | ${SITE.businessName}`;
+const description = 'That page doesn’t exist. Head back to the homepage for junk removal quotes, services, and service areas.';
+
+// The mere existence of dist/404.html matters beyond UX: without it,
+// Cloudflare Pages assumes an SPA and serves index.html with a 200 for every
+// unmatched path — including /sitemap.xml if it's ever missing — which gets
+// soft-404 duplicates indexed. Do not delete this page.
+---
+
+<Layout title={title} description={description} path="/404" noindex={true}>
+  <section class="nf">
+    <div class="container nf__inner">
+      <p class="nf__code" aria-hidden="true">404</p>
+      <h1>Page Not Found</h1>
+      <p class="lede">
+        The page you’re looking for doesn’t exist or has moved. If you need junk
+        gone in {SITE.regionShort}, we can still help.
+      </p>
+
+      <a href={SITE.phone.tel} class="btn btn--call nf__call" data-call="404">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.24 1l-2.23 2.3Z"/></svg>
+        Call {SITE.phone.display}
+      </a>
+
+      <p class="nf__back"><a href="/">← Back to home</a></p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf { padding: 70px 0; background: linear-gradient(180deg, #f7faf8, #fff); }
+  .nf__inner { max-width: 640px; margin: 0 auto; text-align: center; }
+  .nf__code {
+    font-size: 4.5rem; font-weight: 800; line-height: 1;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+  .nf__call { font-size: 1.18rem; margin-top: 14px; }
+  .nf__back { margin-top: 26px; }
+  .nf__back a { color: var(--slate); text-decoration: none; }
+</style>

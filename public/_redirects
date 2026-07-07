@@ -1,0 +1,33 @@
+# Cloudflare Pages redirect rules.
+# https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# 301 every non-slash page URL to its trailing-slash canonical so Google stops
+# indexing /sandy and /sandy/ as duplicates. Astro is configured with
+# trailingSlash: 'always', so the slashed form is the only one that should
+# resolve with a 200.
+#
+# Keep in sync with src/pages/ and the city slugs in src/config/cities.ts.
+# City rules are harmless on the single-city builds (AF/SLC): the redirect
+# target simply 404s there, same as the source path.
+
+/services            /services/            301
+/appliance-removal   /appliance-removal/   301
+/furniture-removal   /furniture-removal/   301
+/contact             /contact/             301
+/thank-you           /thank-you/           301
+
+/provo               /provo/               301
+/orem                /orem/                301
+/lehi                /lehi/                301
+/american-fork       /american-fork/       301
+/sandy               /sandy/               301
+/draper              /draper/              301
+/south-jordan        /south-jordan/        301
+/west-jordan         /west-jordan/         301
+/west-valley-city    /west-valley-city/    301
+/taylorsville        /taylorsville/        301
+/murray              /murray/              301
+/ogden               /ogden/               301
+/layton              /layton/              301
+/st-george           /st-george/           301
+/logan               /logan/               301
