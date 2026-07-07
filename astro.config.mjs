@@ -1,6 +1,26 @@
+import { copyFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { SITE } from './src/config/site.ts';
+
+// @astrojs/sitemap only emits sitemap-index.xml + sitemap-0.xml, but crawlers
+// and audit tools probe the conventional /sitemap.xml. Publish the full urlset
+// there too (the site is ~20 URLs, far under the 45k entry limit, so
+// sitemap-0.xml always contains every page). Must be listed AFTER sitemap()
+// in `integrations` — build:done hooks run in integration order.
+function sitemapXmlAlias() {
+  return {
+    name: 'sitemap-xml-alias',
+    hooks: {
+      'astro:build:done': async ({ dir }) => {
+        const out = fileURLToPath(dir);
+        await copyFile(join(out, 'sitemap-0.xml'), join(out, 'sitemap.xml'));
+      },
+    },
+  };
+}
 
 // https://astro.build
 // Static output for maximum speed + near-perfect Lighthouse scores.
@@ -20,6 +40,7 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.8,
     }),
+    sitemapXmlAlias(),
   ],
   build: {
     inlineStylesheets: 'always',
