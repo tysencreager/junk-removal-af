@@ -71,9 +71,9 @@ export const utah: SiteProfile = {
 
   content: {
     home: {
-      title: 'Junk Removal Utah | Fast & Affordable Statewide Hauling',
+      title: 'Junk Removal Utah | Same-Day Hauling, Upfront Prices',
       description:
-        'Need fast junk removal in Utah? We haul away furniture, appliances, yard waste, and construction debris statewide. Call now for a free estimate!',
+        'Same-day junk removal across Utah. Furniture, appliances, yard waste & full cleanouts with upfront pricing. Call (801) 441-2533 for a free quote!',
       h1: 'Junk Removal Services in Utah',
       lede: 'Fast, affordable, same-day junk hauling across Utah. We take furniture, appliances, yard waste, and construction debris from the Wasatch Front to St. George — you point, we haul.',
       faqHeading: 'Utah Junk Removal FAQs',
