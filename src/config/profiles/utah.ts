@@ -109,9 +109,9 @@ export const utah: SiteProfile = {
       lede: 'One crew for everything you need gone — junk, debris, and complete cleanouts. Upfront pricing and same-day service in cities across Utah.',
     },
     appliance: {
-      title: 'Appliance Removal Utah | Same-Day Pickup Statewide',
+      title: 'Appliance Removal Utah | Fridge Haul-Away From $75',
       description:
-        'Fast appliance removal across Utah. We haul away old refrigerators, washers, dryers, stoves, and water heaters. Same-day pickup — free estimate!',
+        'Same-day appliance removal across Utah from $75. Freon-safe fridge & freezer disposal, heavy lifting included, upfront prices. Call (801) 441-2533!',
       eyebrow: 'Same-Day Appliance Pickup Across Utah',
       h1: 'Appliance Removal in Utah',
       lede: 'Got a dead fridge or an old washer taking up space? We haul away heavy appliances across Utah — fast, insured, and same-day. You don’t lift a finger.',
