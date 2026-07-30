@@ -28,8 +28,10 @@ const nearby = city.nearby
   .filter((s) => validSlugs.has(s))
   .map((s) => UTAH_CITIES.find((c) => c.slug === s)!);
 
-const title = `Junk Removal ${city.name} UT | Full-Service, Free Quote`;
-const description = `Same-day junk removal in ${city.name}, UT with upfront pricing. Furniture, appliances, garage & basement cleanouts. Call (801) 441-2533 for a free quote!`;
+const title = city.seoTitle ?? `Junk Removal ${city.name} UT | Full-Service, Free Quote`;
+const description =
+  city.seoDescription ??
+  `Same-day junk removal in ${city.name}, UT with upfront pricing. Furniture, appliances, garage & basement cleanouts. Call (801) 441-2533 for a free quote!`;
 
 const faqs = [
   {

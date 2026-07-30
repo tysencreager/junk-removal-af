@@ -15,6 +15,10 @@ export interface UtahCity {
   neighborhoods: string[];
   /** Slugs of nearby cities for internal linking. */
   nearby: string[];
+  /** Optional per-city SEO overrides when GSC shows the city's query profile
+   *  doesn't match the shared template (e.g. South Jordan's trash/waste cluster). */
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 export const UTAH_CITIES: UtahCity[] = [
@@ -80,6 +84,11 @@ export const UTAH_CITIES: UtahCity[] = [
       'Daybreak and the surrounding South Jordan neighborhoods keep us busy with move-out cleanouts, old furniture, and appliance hauling — same-day when you need it.',
     neighborhoods: ['Daybreak', 'Glenmoor', 'River Ridge', 'Welby', 'Jordan Ridge', 'SunRiver'],
     nearby: ['west-jordan', 'sandy', 'draper'],
+    // GSC 7/16–7/30: 123 impr across 55 keywords, dominated by "trash service /
+    // waste / garbage south jordan" variants the generic title never mentions.
+    seoTitle: 'Junk Removal South Jordan UT | Trash & Waste Hauling',
+    seoDescription:
+      'Same-day junk removal & trash hauling in South Jordan — Daybreak to Glenmoor. Upfront prices from $75, cleanouts & waste pickup. Call (801) 441-2533!',
   },
   {
     slug: 'west-jordan',
