@@ -39,6 +39,12 @@ export const UTAH_CITIES: UtahCity[] = [
       'Garage cleanouts, old appliances, and curbside furniture pickups throughout Orem — we do the heavy lifting and haul it away the same day.',
     neighborhoods: ['Sharon Park', 'Cascade', 'Northridge', 'Geneva Heights', 'Suncrest', 'Hillcrest'],
     nearby: ['provo', 'lindon', 'lehi'],
+    // GSC 7/23–8/5: /orem/ at 60 impr across 17 kw, dominated by cleanout
+    // queries (garage/basement/home cleanouts) the template title never
+    // mentions. Same relevance play as the 7/30 South Jordan override.
+    seoTitle: 'Junk Removal Orem UT | Cleanouts & Same-Day Hauling',
+    seoDescription:
+      'Garage, basement & home cleanouts in Orem — full-service junk removal, same-day hauling, upfront prices from $75. Free quote: (801) 441-2533!',
   },
   {
     slug: 'lehi',
