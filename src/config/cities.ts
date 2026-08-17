@@ -4,8 +4,9 @@
  * active profile is statewide (SITE.scope === 'state'). Each city has unique
  * copy + neighborhood lists to avoid thin/duplicate content.
  *
- * Salt Lake City is intentionally omitted — it has its own dedicated site
- * (junkremovalslc.com) and shouldn't compete with a sub-page here.
+ * Salt Lake City lives here now. It used to be omitted so it wouldn't compete
+ * with its own dedicated site (junkremovalslc.com); that site was retired, so
+ * the statewide site is where SLC traffic should land.
  */
 export interface UtahCity {
   slug: string;
@@ -65,6 +66,15 @@ export const UTAH_CITIES: UtahCity[] = [
     nearby: ['lehi', 'orem', 'provo'],
   },
   {
+    slug: 'salt-lake-city',
+    name: 'Salt Lake City',
+    county: 'Salt Lake County',
+    blurb:
+      'Downtown high-rises, Avenues bungalows, and Sugar House rentals — we haul furniture, appliances, mattresses, and full move-out cleanouts across Salt Lake City the same day.',
+    neighborhoods: ['Downtown', 'Sugar House', 'The Avenues', 'Federal Heights', 'Liberty Wells', 'Rose Park', 'Glendale', 'Poplar Grove', 'Yalecrest'],
+    nearby: ['murray', 'west-valley-city', 'taylorsville'],
+  },
+  {
     slug: 'sandy',
     name: 'Sandy',
     county: 'Salt Lake County',
@@ -112,7 +122,7 @@ export const UTAH_CITIES: UtahCity[] = [
     blurb:
       'Utah’s second-largest city — we handle residential and commercial junk removal across West Valley City, from single appliances to full property cleanouts.',
     neighborhoods: ['Hunter', 'Granger', 'Chesterfield', 'Redwood', 'Glendale-area', 'Valley West'],
-    nearby: ['west-jordan', 'taylorsville', 'magna'],
+    nearby: ['salt-lake-city', 'west-jordan', 'taylorsville'],
   },
   {
     slug: 'taylorsville',
@@ -130,7 +140,7 @@ export const UTAH_CITIES: UtahCity[] = [
     blurb:
       'Centrally located Murray gets quick same-day service — furniture removal, appliance hauling, and full basement or estate cleanouts.',
     neighborhoods: ['Murray Downtown', 'Vine Street', 'Arlington Hills', 'Liberty', 'Cottonwood', 'Winchester'],
-    nearby: ['taylorsville', 'sandy', 'west-jordan'],
+    nearby: ['salt-lake-city', 'taylorsville', 'sandy'],
   },
   {
     slug: 'ogden',

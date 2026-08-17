@@ -7,8 +7,6 @@
 # resolve with a 200.
 #
 # Keep in sync with src/pages/ and the city slugs in src/config/cities.ts.
-# City rules are harmless on the single-city builds (AF/SLC): the redirect
-# target simply 404s there, same as the source path.
 
 /services            /services/            301
 /junk-removal-cost   /junk-removal-cost/   301
@@ -22,6 +20,7 @@
 /orem                /orem/                301
 /lehi                /lehi/                301
 /american-fork       /american-fork/       301
+/salt-lake-city      /salt-lake-city/      301
 /sandy               /sandy/               301
 /draper              /draper/              301
 /south-jordan        /south-jordan/        301

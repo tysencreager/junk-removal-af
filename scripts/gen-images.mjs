@@ -12,8 +12,6 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const p = (rel) => resolve(root, rel);
 
 const SITES = [
-  { key: 'americanfork', eyebrow: '#1 RATED · AMERICAN FORK, UT', l1: 'Junk Removal in', l2: 'American Fork, UT', sub: 'Fast · Affordable · Same-Day Hauling' },
-  { key: 'slc', eyebrow: '#1 RATED · SALT LAKE CITY, UT', l1: 'Junk Removal in', l2: 'Salt Lake City, UT', sub: 'Fast · Affordable · Same-Day Hauling' },
   { key: 'utah', eyebrow: '#1 RATED · STATEWIDE UTAH', l1: 'Junk Removal', l2: 'Across Utah', sub: 'Fast · Affordable · Same-Day · Statewide' },
 ];
 

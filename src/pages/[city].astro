@@ -11,8 +11,8 @@ import { SITE } from '../config/site';
 import { UTAH_CITIES } from '../config/cities';
 import type { UtahCity } from '../config/cities';
 
-// Only the statewide site emits city landing pages. On the city-scoped sites
-// (American Fork, SLC) this returns no paths, so the route doesn't exist there.
+// Only a statewide profile emits city landing pages. A city-scoped profile
+// returns no paths here, so the route doesn't exist on that build.
 export async function getStaticPaths() {
   if (SITE.scope !== 'state') return [];
   return UTAH_CITIES.map((c) => ({ params: { city: c.slug }, props: { city: c } }));

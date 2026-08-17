@@ -1,32 +1,30 @@
 /**
  * Active site selector.
  *
- * One codebase, multiple localized sites. The build picks a profile via the
- * SITE_KEY environment variable (defaults to American Fork):
+ * One codebase, one live site. The build picks a profile via the SITE_KEY
+ * environment variable (defaults to the statewide Utah site):
  *
- *   SITE_KEY=americanfork  npm run build   → junkremovalamericanfork.com
- *   SITE_KEY=slc           npm run build   → junkremovalslc.com
- *   SITE_KEY=utah          npm run build   → junkremovalservicesutah.com
+ *   SITE_KEY=utah  npm run build   → junkremovalservicesutah.com
  *
- * Convenience scripts: build:af / build:slc / build:utah / build:all.
+ * The city-scoped American Fork and Salt Lake City sites
+ * (junkremovalamericanfork.com / junkremovalslc.com) were retired — their
+ * markets are now served by the statewide site's /american-fork/ and
+ * /salt-lake-city/ landing pages. Their profiles live in git history if the
+ * domains are ever relaunched.
  *
  * Add a new market: create src/config/profiles/<key>.ts and register it in
  * PROFILES below. Everything else (copy, schema, sitemap, OG image) follows.
  */
 import type { SiteProfile } from './types';
-import { americanfork } from './profiles/americanfork';
-import { slc } from './profiles/slc';
 import { utah } from './profiles/utah';
 
 const PROFILES: Record<string, SiteProfile> = {
-  americanfork,
-  slc,
   utah,
 };
 
 // Normalize so case/whitespace in the SITE_KEY env var can't break a build
 // (e.g. "Utah" or " utah " both resolve to the `utah` profile).
-const key = (process.env.SITE_KEY ?? 'americanfork').trim().toLowerCase();
+const key = (process.env.SITE_KEY ?? 'utah').trim().toLowerCase();
 const profile = PROFILES[key];
 
 if (!profile) {
