@@ -11,8 +11,8 @@ import { SITE } from '../config/site';
 import { UTAH_CITIES } from '../config/cities';
 import type { UtahCity } from '../config/cities';
 
-// Only the statewide site emits city landing pages. On the city-scoped sites
-// (American Fork, SLC) this returns no paths, so the route doesn't exist there.
+// Only a statewide profile emits city landing pages. A city-scoped profile
+// returns no paths here, so the route doesn't exist on that build.
 export async function getStaticPaths() {
   if (SITE.scope !== 'state') return [];
   return UTAH_CITIES.map((c) => ({ params: { city: c.slug }, props: { city: c } }));
@@ -28,8 +28,10 @@ const nearby = city.nearby
   .filter((s) => validSlugs.has(s))
   .map((s) => UTAH_CITIES.find((c) => c.slug === s)!);
 
-const title = `Junk Removal ${city.name} UT | Same-Day Hauling & Free Estimate`;
-const description = `Fast, affordable junk removal in ${city.name}, Utah. We haul furniture, appliances, yard waste, and construction debris — same-day pickup. Call for a free estimate!`;
+const title = city.seoTitle ?? `Junk Removal ${city.name} UT | Full-Service, Free Quote`;
+const description =
+  city.seoDescription ??
+  `Same-day junk removal in ${city.name}, UT with upfront pricing. Furniture, appliances, garage & basement cleanouts. Call (801) 441-2533 for a free quote!`;
 
 const faqs = [
   {
@@ -100,7 +102,7 @@ const faqs = [
         <h2 id="nearby-h">We Also Serve Cities Near {city.name}</h2>
         <ul class="nearby">
           {nearby.map((n) => (
-            <li><a href={`/${n.slug}`}>Junk Removal in {n.name} →</a></li>
+            <li><a href={`/${n.slug}/`}>Junk Removal in {n.name} →</a></li>
           ))}
           <li><a href="/">All Utah service areas →</a></li>
         </ul>

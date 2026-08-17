@@ -28,7 +28,7 @@ export const utah: SiteProfile = {
   priceRange: '$$',
 
   phone: { raw: '+18014412533', display: '(801) 441-2533' },
-  form: { endpoint: 'https://formspree.io/f/xjgdbyen', redirect: '/thank-you' },
+  form: { endpoint: 'https://formspree.io/f/xjgdbyen', redirect: '/thank-you/' },
   gaId: 'G-XXXXXXXXXX', // TODO: Utah GA4 Measurement ID
 
   areasServed: [
@@ -71,9 +71,9 @@ export const utah: SiteProfile = {
 
   content: {
     home: {
-      title: 'Junk Removal Utah | Fast & Affordable Statewide Hauling',
+      title: 'Junk Removal Utah | Same-Day Hauling, Upfront Prices',
       description:
-        'Need fast junk removal in Utah? We haul away furniture, appliances, yard waste, and construction debris statewide. Call now for a free estimate!',
+        'Same-day junk removal across Utah. Furniture, appliances, yard waste & full cleanouts with upfront pricing. Call (801) 441-2533 for a free quote!',
       h1: 'Junk Removal Services in Utah',
       lede: 'Fast, affordable, same-day junk hauling across Utah. We take furniture, appliances, yard waste, and construction debris from the Wasatch Front to St. George — you point, we haul.',
       faqHeading: 'Utah Junk Removal FAQs',
@@ -109,9 +109,9 @@ export const utah: SiteProfile = {
       lede: 'One crew for everything you need gone — junk, debris, and complete cleanouts. Upfront pricing and same-day service in cities across Utah.',
     },
     appliance: {
-      title: 'Appliance Removal Utah | Same-Day Pickup Statewide',
+      title: 'Appliance Removal Utah | Fridge Haul-Away From $75',
       description:
-        'Fast appliance removal across Utah. We haul away old refrigerators, washers, dryers, stoves, and water heaters. Same-day pickup — free estimate!',
+        'Same-day appliance removal across Utah from $75. Freon-safe fridge & freezer disposal, heavy lifting included, upfront prices. Call (801) 441-2533!',
       eyebrow: 'Same-Day Appliance Pickup Across Utah',
       h1: 'Appliance Removal in Utah',
       lede: 'Got a dead fridge or an old washer taking up space? We haul away heavy appliances across Utah — fast, insured, and same-day. You don’t lift a finger.',

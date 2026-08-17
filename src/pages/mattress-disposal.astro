@@ -1,0 +1,261 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import AreasServed from '../components/AreasServed.astro';
+import CtaBand from '../components/CtaBand.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { SITE } from '../config/site';
+
+const title = 'Mattress Disposal Salt Lake City | Pickup From $75';
+const description =
+  'Mattress disposal in Salt Lake City made easy: same-day pickup from $75, plus 2026 dump fees & free recycling options. Call (801) 441-2533 for a quote!';
+
+// Every legitimate way to get rid of a mattress in the Salt Lake Valley,
+// with real 2026 costs verified from official/published sources.
+const options = [
+  {
+    option: 'Professional pickup (us)',
+    cost: '$80 – $150 first piece',
+    details: 'Same-day, we carry it out from any room — box springs and frames too.',
+  },
+  {
+    option: 'Salt Lake Valley Landfill (DIY)',
+    cost: '$17 load fee + $18 per mattress',
+    details: '6030 W California Ave, Mon–Sat. Truck required; uncovered loads pay double.',
+  },
+  {
+    option: 'Spring Back Utah drop-off',
+    cost: '$20 per piece',
+    details: '1929 S 4130 W. Weekdays 8–4:30, Sat 10–2. Must be dry and bug-free.',
+  },
+  {
+    option: 'Spring Back Utah home pickup',
+    cost: '$60 first + $20 each add’l',
+    details: 'Scheduled recycling pickup from your door.',
+  },
+  {
+    option: 'Call 2 Haul (SLC residents)',
+    cost: 'Free',
+    details: 'One bulk pickup per year with city garbage service — schedule ahead at 801-535-6953.',
+  },
+];
+
+const rules = [
+  {
+    h3: 'No mattresses in the curbside can',
+    body: 'Salt Lake City garbage bins can’t take mattresses or box springs. They have to go to the landfill, a recycler, or out with a scheduled bulk pickup — or a hauler takes them for you.',
+  },
+  {
+    h3: 'Cover your load or pay double',
+    body: 'Hauling it yourself? The Salt Lake Valley Landfill requires loads to be securely covered — arrive with an uncovered mattress strapped to the roof and the fee doubles.',
+  },
+  {
+    h3: 'Recyclers only take dry, bug-free beds',
+    body: 'About 90% of a mattress — steel, foam, and wood — is recyclable, but Spring Back Utah and the city’s recycling stream can only accept mattresses that are dry and free of bed bugs. Wet or soiled beds go to the landfill.',
+  },
+  {
+    h3: 'Most charities won’t take used mattresses',
+    body: 'Deseret Industries and most Utah thrift stores don’t accept used mattresses or box springs for health and safety reasons. Unless your mattress is nearly new, plan on recycling or disposal instead of donation.',
+  },
+];
+
+// Visible FAQ mirrors the FAQPage JSON-LD injected by Layout via the faq prop.
+const faqs = [
+  {
+    q: 'How do I dispose of a mattress in Salt Lake City?',
+    a: 'You have five real options: book a junk removal pickup (from $75, same-day), haul it to the Salt Lake Valley Landfill ($17 load fee plus $18 per mattress), drop it at Spring Back Utah’s recycling warehouse ($20 per piece), schedule a Spring Back home pickup ($60 for the first piece), or — if you live in Salt Lake City proper — use your free annual Call 2 Haul bulk pickup.',
+  },
+  {
+    q: 'How much does mattress disposal cost in Salt Lake City?',
+    a: 'Professional pickup runs $80–$150 for the first mattress or box spring, with additional pieces cheaper. DIY at the Salt Lake Valley Landfill costs $17 per car or pickup load plus $18 per mattress — before truck rental and your time. Spring Back Utah charges $20 per piece at their drop-off.',
+  },
+  {
+    q: 'Can I put a mattress in my curbside garbage can?',
+    a: 'No. Mattresses and box springs aren’t accepted in regular Salt Lake City curbside bins. City residents can schedule a free Call 2 Haul bulk pickup once a year (801-535-6953); otherwise it needs to go to the landfill or a recycler — or we can pick it up same-day.',
+  },
+  {
+    q: 'Can I donate a used mattress in Utah?',
+    a: 'Usually not. Deseret Industries and most Utah thrift stores don’t accept used mattresses or beds for hygiene and safety reasons. If your mattress is clean, dry, and nearly new, a local shelter may take it — call ahead. For everything else, recycling through Spring Back Utah keeps it out of the landfill.',
+  },
+  {
+    q: 'Is mattress recycling free in Salt Lake City?',
+    a: 'Not quite — Spring Back Utah charges $20 per piece at their warehouse drop-off. The closest thing to free is Call 2 Haul: Salt Lake City residents get a yearly bulk pickup at no charge, and clean, dry mattresses collected that way get recycled. When we haul your mattress, recyclable beds are routed to recycling as part of the price.',
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  path="/mattress-disposal"
+  breadcrumb="Mattress Disposal"
+  service={{ name: 'Mattress Disposal & Removal', description }}
+  faq={faqs}
+>
+  <Hero
+    eyebrow="Same-Day Mattress Removal in Salt Lake City"
+    h1="Mattress Disposal in Salt Lake City"
+    lede="Old mattress to get rid of? Here’s every option in the Salt Lake Valley — real 2026 dump fees, recycling drop-offs, the city’s free pickup program, and what full-service removal costs — so you can pick the easiest way to make it gone."
+    bullets={['Pickup From Any Room', 'Same-Day Service', 'Recycled When Possible']}
+    formHeading="Get Your Mattress Gone Today"
+    formSource="mattress-hero"
+  />
+
+  <TrustBadges />
+
+  <section class="section" aria-labelledby="opt-h">
+    <div class="container">
+      <span class="eyebrow">All Your Options, Compared</span>
+      <h2 id="opt-h">Every Way to Get Rid of a Mattress in Salt Lake City (2026)</h2>
+      <p class="lede">
+        These are the five legitimate routes for a mattress or box spring in the Salt
+        Lake Valley, with current published costs. Prices for other junk are on our{' '}
+        <a href="/junk-removal-cost/">Utah junk removal cost guide</a>.
+      </p>
+      <div class="tbl-wrap">
+        <table class="price-tbl">
+          <thead>
+            <tr>
+              <th scope="col">Option</th>
+              <th scope="col">2026 cost</th>
+              <th scope="col">What to know</th>
+            </tr>
+          </thead>
+          <tbody>
+            {options.map((r) => (
+              <tr>
+                <th scope="row">{r.option}</th>
+                <td class="price">{r.cost}</td>
+                <td>{r.details}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="fineprint">
+        Landfill rates published by the Salt Lake Valley Landfill; recycling prices
+        published by Spring Back Utah; Call 2 Haul is Salt Lake City’s official bulk
+        waste program. Getting rid of a couch or fridge at the same time? See{' '}
+        <a href="/furniture-removal/">furniture removal</a> and{' '}
+        <a href="/appliance-removal/">appliance removal</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--mist" aria-labelledby="rules-h">
+    <div class="container">
+      <span class="eyebrow">Before You Load the Truck</span>
+      <h2 id="rules-h">4 Salt Lake City Mattress Disposal Rules to Know</h2>
+      <div class="grid grid--2" style="margin-top: 26px;">
+        {rules.map((f) => (
+          <div class="card">
+            <h3>{f.h3}</h3>
+            <p>{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="how-h">
+    <div class="container narrow">
+      <span class="eyebrow">The Easy Way</span>
+      <h2 id="how-h">How Our Mattress Pickup Works</h2>
+      <ol class="steps">
+        <li><strong>Tell us what’s going.</strong> Call <a href={SITE.phone.tel} data-call="mattress-page">{SITE.phone.display}</a> or use the form — mattress, box spring, frame, headboard, all of it.</li>
+        <li><strong>Get an upfront price.</strong> Single pieces start at $75; we confirm the exact all-inclusive number before we touch anything.</li>
+        <li><strong>We carry it out.</strong> Upstairs bedroom, basement, garage — the crew hauls it, sweeps up, and routes clean beds to recycling.</li>
+      </ol>
+      <LeadForm
+        heading="Get a Free Mattress Removal Quote"
+        sub="Tell us how many pieces and your ZIP — we’ll text back a fast, upfront price."
+        id="mattress"
+        source="mattress-mid"
+      />
+    </div>
+  </section>
+
+  <section class="section section--mist" aria-labelledby="faq-h2">
+    <div class="container faqwrap">
+      <span class="eyebrow">Mattress Disposal Questions</span>
+      <h2 id="faq-h2">Salt Lake City Mattress Disposal FAQs</h2>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary>
+              <h3>{f.q}</h3>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <AreasServed />
+
+  <CtaBand heading="Mattress Ready to Disappear in Salt Lake City?" />
+</Layout>
+
+<style>
+  .narrow { max-width: 680px; }
+  .tbl-wrap { margin-top: 24px; overflow-x: auto; }
+  .price-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .price-tbl th,
+  .price-tbl td {
+    text-align: left;
+    padding: 14px 16px; /* comfortable ≥44px row tap targets */
+    border-bottom: 1px solid var(--line);
+    font-size: 0.98rem;
+  }
+  .price-tbl thead th {
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .price-tbl tbody tr:last-child th,
+  .price-tbl tbody tr:last-child td { border-bottom: none; }
+  .price-tbl tbody th { font-weight: 700; }
+  .price { font-weight: 800; white-space: nowrap; }
+  .fineprint { margin-top: 14px; font-size: 0.9rem; color: var(--slate); max-width: 72ch; }
+  .steps { margin: 20px 0 30px; padding-left: 20px; display: grid; gap: 12px; }
+  .steps li { line-height: 1.55; }
+
+  .faqwrap { max-width: 820px; }
+  .faq-list { margin-top: 22px; border-top: 1px solid var(--line); }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 0; /* full-row tap target ≥44px */
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item h3 { margin: 0; font-size: 1.12rem; }
+  .faq-icon { position: relative; width: 18px; height: 18px; flex: none; }
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    background: var(--green);
+    border-radius: 2px;
+  }
+  .faq-icon::before { top: 8px; left: 0; width: 18px; height: 2px; }
+  .faq-icon::after { left: 8px; top: 0; width: 2px; height: 18px; transition: transform 0.15s ease; }
+  .faq-item[open] .faq-icon::after { transform: rotate(90deg); }
+  .faq-item p { margin: 0 0 18px; color: var(--slate); }
+</style>

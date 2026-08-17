@@ -1,17 +1,14 @@
 {
-  "name": "american-fork-junk-removal-leadgen",
+  "name": "utah-junk-removal-leadgen",
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Hyper-local rank & rent lead generation site for junk removal in American Fork, UT.",
+  "description": "Statewide rank & rent lead generation site for junk removal in Utah.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "build:af": "SITE_KEY=americanfork astro build --outDir dist/americanfork",
-    "build:slc": "SITE_KEY=slc astro build --outDir dist/slc",
     "build:utah": "SITE_KEY=utah astro build --outDir dist/utah",
-    "build:all": "npm run build:af && npm run build:slc && npm run build:utah",
     "preview": "astro preview",
     "gen:images": "node scripts/gen-images.mjs",
     "astro": "astro"

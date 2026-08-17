@@ -95,7 +95,7 @@ const redirectUrl = new URL(SITE.form.redirect, SITE.url).href;
     const form = el as HTMLFormElement;
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     const status = form.querySelector('.lead-form__status') as HTMLElement;
-    const redirect = form.dataset.redirect || '/thank-you';
+    const redirect = form.dataset.redirect || '/thank-you/';
 
     form.addEventListener('submit', async (e) => {
       // honeypot tripped → silently drop

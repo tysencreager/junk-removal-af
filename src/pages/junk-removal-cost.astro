@@ -1,0 +1,337 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import AreasServed from '../components/AreasServed.astro';
+import CtaBand from '../components/CtaBand.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { SITE } from '../config/site';
+
+const title = 'Junk Removal Cost in Utah (2026) | Prices & Free Quotes';
+const description =
+  'Utah junk removal prices for 2026: single items from $75, full loads $550–$850, plus real SLC dump fees. Call (801) 441-2533 for a free upfront quote!';
+
+// Priced by how much of the truck the load fills — the industry standard.
+// Ranges reflect 2026 national data (Angi / HomeGuide) adjusted for Utah,
+// which runs below coastal metro pricing.
+const loadPrices = [
+  { size: 'Single item', share: 'One couch, mattress, or appliance', price: '$75 – $150' },
+  { size: '1/4 truck load', share: 'A small bedroom’s worth', price: '$150 – $275' },
+  { size: '1/2 truck load', share: 'A one-car garage cleanout', price: '$250 – $400' },
+  { size: '3/4 truck load', share: 'A large basement or shed', price: '$400 – $550' },
+  { size: 'Full truck load', share: 'Whole-home or estate cleanout', price: '$550 – $850' },
+];
+
+const itemPrices = [
+  { item: 'Mattress or box spring', price: '$80 – $150' },
+  { item: 'Couch or sectional', price: '$95 – $200' },
+  { item: 'Refrigerator or freezer', price: '$75 – $150' },
+  { item: 'Washer or dryer', price: '$75 – $125' },
+  { item: 'TV or electronics', price: '$60 – $100' },
+  { item: 'Hot tub (cut & haul)', price: '$300 – $600' },
+];
+
+const costFactors = [
+  {
+    h3: 'Volume — how much truck space it fills',
+    body: 'The single biggest driver. Junk removal is priced by the fraction of the truck your items occupy, so a couple of bags costs far less than a garage full of clutter.',
+  },
+  {
+    h3: 'Weight & material type',
+    body: 'Dense debris like concrete, tile, shingles, or dirt is billed by weight because landfills charge haulers by the ton. Heavy loads can cost more than the same volume of furniture.',
+  },
+  {
+    h3: 'Labor & access',
+    body: 'Items carried down from a third-floor apartment, hoisted out of a basement, or disassembled first (hot tubs, swing sets, sheds) take more crew time and raise the price.',
+  },
+  {
+    h3: 'Disposal & recycling fees',
+    body: 'Every load ends at a transfer station or landfill with its own fees — in the Salt Lake Valley that’s $36/ton for mixed trash, plus per-item charges for mattresses and freon appliances. Those costs are built into your quote.',
+  },
+];
+
+// Visible FAQ mirrors the FAQPage JSON-LD injected by Layout via the faq prop.
+const faqs = [
+  {
+    q: 'How much does junk removal cost in Utah?',
+    a: 'Most Utah junk removal jobs run $150–$350. Single items start around $75, a half truck load costs $250–$400, and a full truck load (a whole-home cleanout) runs $550–$850. We confirm an exact, all-inclusive price before any work starts.',
+  },
+  {
+    q: 'How much does it cost to dump junk myself in Salt Lake City?',
+    a: 'The Salt Lake Valley Landfill charges a $17 flat rate per car or pickup load, or $36 per ton for larger loads, plus $18 per mattress or box spring and $20 per freon appliance. The Trans-Jordan transfer station charges $51 per ton with a $20 minimum. Add truck rental, fuel, and loading time, and a pro crew is often cheaper for anything bigger than one pickup load.',
+  },
+  {
+    q: 'What does the price include?',
+    a: 'Everything: labor, loading from anywhere on your property, hauling, dump and recycling fees, and cleanup of the area. The price we quote is the price you pay — no fuel surcharges or hidden fees.',
+  },
+  {
+    q: 'Is it cheaper to rent a dumpster or hire junk removal?',
+    a: 'A dumpster rental in Utah typically runs $300–$500 per week and you do all the loading. Full-service junk removal costs a similar amount for most cleanouts, but the crew does the lifting and it’s gone the same day — usually the better value unless a project spans weeks.',
+  },
+  {
+    q: 'How do I get an exact price?',
+    a: 'Call (801) 441-2533 or send a few details through our quote form. Describe the items or text a photo and we’ll give you a firm, upfront price — free, with no obligation. Same-day service is often available across Utah.',
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  path="/junk-removal-cost"
+  breadcrumb="Junk Removal Cost"
+  service={{ name: 'Junk Removal', description }}
+  faq={faqs}
+>
+  <Hero
+    eyebrow="2026 Utah Pricing Guide"
+    h1="How Much Does Junk Removal Cost in Utah?"
+    lede="Most Utah junk removal jobs cost $150–$350, with single items from $75 and full truckloads up to $850. Here are real 2026 prices — by load size, by item, and what you’d pay hauling it yourself — so you know exactly what to expect."
+    bullets={['Upfront, All-Inclusive Prices', 'No Hidden Fees', 'Free Same-Day Quotes']}
+    formHeading="Get Your Exact Price — Free"
+    formSource="cost-hero"
+  />
+
+  <TrustBadges />
+
+  <section class="section" aria-labelledby="load-h">
+    <div class="container">
+      <span class="eyebrow">Priced by Truck Space</span>
+      <h2 id="load-h">Junk Removal Prices by Load Size (2026)</h2>
+      <p class="lede">
+        Like most of the industry, we price by how much of the truck your junk fills.
+        You only pay for the space you use — and we confirm the exact price on-site
+        before we load a single item.
+      </p>
+      <div class="tbl-wrap">
+        <table class="price-tbl">
+          <thead>
+            <tr>
+              <th scope="col">Load size</th>
+              <th scope="col">What that looks like</th>
+              <th scope="col">Typical Utah price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loadPrices.map((r) => (
+              <tr>
+                <th scope="row">{r.size}</th>
+                <td>{r.share}</td>
+                <td class="price">{r.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="fineprint">
+        Ranges reflect typical 2026 pricing for the Wasatch Front. Heavy debris
+        (concrete, dirt, shingles) is quoted by weight instead —{' '}
+        <a href="/contact/">tell us about your load</a> for a firm number.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--mist" aria-labelledby="item-h">
+    <div class="container">
+      <span class="eyebrow">Common Single Items</span>
+      <h2 id="item-h">Cost to Remove Common Items in Utah</h2>
+      <p class="lede">
+        Just one thing to get rid of? Single-item pickups start at our $75 minimum.
+        Popular removals include:
+      </p>
+      <div class="tbl-wrap">
+        <table class="price-tbl">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Typical price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {itemPrices.map((r) => (
+              <tr>
+                <th scope="row">{r.item}</th>
+                <td class="price">{r.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="fineprint">
+        See our <a href="/appliance-removal/">appliance removal</a> and{' '}
+        <a href="/furniture-removal/">furniture removal</a> pages for everything we
+        take, every way to <a href="/mattress-disposal/">get rid of a mattress in Salt
+        Lake City</a> — or <a href="/services/">browse all hauling services</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="factor-h">
+    <div class="container">
+      <span class="eyebrow">What Drives the Price</span>
+      <h2 id="factor-h">4 Things That Determine Your Junk Removal Cost</h2>
+      <div class="grid grid--2" style="margin-top: 26px;">
+        {costFactors.map((f) => (
+          <div class="card">
+            <h3>{f.h3}</h3>
+            <p>{f.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist" aria-labelledby="diy-h">
+    <div class="container">
+      <span class="eyebrow">DIY vs. Full-Service</span>
+      <h2 id="diy-h">What Hauling It Yourself Really Costs in Salt Lake City</h2>
+      <p class="lede">
+        Thinking about borrowing a truck? Here’s what Salt Lake Valley dumps
+        actually charge in 2026:
+      </p>
+      <div class="tbl-wrap">
+        <table class="price-tbl">
+          <thead>
+            <tr>
+              <th scope="col">Facility fee</th>
+              <th scope="col">2026 rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Salt Lake Valley Landfill — car/pickup load (flat)</th>
+              <td class="price">$17</td>
+            </tr>
+            <tr>
+              <th scope="row">Salt Lake Valley Landfill — mixed trash (per ton)</th>
+              <td class="price">$36</td>
+            </tr>
+            <tr>
+              <th scope="row">Mattress or box spring (each)</th>
+              <td class="price">$18</td>
+            </tr>
+            <tr>
+              <th scope="row">Fridge/freezer or other freon unit (each)</th>
+              <td class="price">$20</td>
+            </tr>
+            <tr>
+              <th scope="row">Tires (each, 12 max)</th>
+              <td class="price">$4</td>
+            </tr>
+            <tr>
+              <th scope="row">Trans-Jordan transfer station (per ton, $20 min)</th>
+              <td class="price">$51</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fineprint">
+        Rates published by the Salt Lake Valley Landfill (6030 W California Ave, open
+        Mon–Sat 7am–5pm) and Trans-Jordan facilities. Add a truck or trailer rental
+        ($20–$100/day), fuel, dump-line wait time, and the lifting — for anything more
+        than a single pickup load, full-service removal usually wins on total cost.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="quote-h">
+    <div class="container narrow">
+      <span class="eyebrow">No Surprises</span>
+      <h2 id="quote-h">How Our Upfront Pricing Works</h2>
+      <ol class="steps">
+        <li><strong>Tell us what’s going.</strong> Call <a href={SITE.phone.tel} data-call="cost-page">{SITE.phone.display}</a> or use the form — a quick description or photo is plenty.</li>
+        <li><strong>Get a firm range.</strong> We quote you a tight, all-inclusive range over the phone — labor, hauling, and every dump fee included.</li>
+        <li><strong>Approve the exact price on-site.</strong> The crew confirms the final number before touching anything. If you say no, you owe nothing.</li>
+      </ol>
+      <LeadForm
+        heading="Get Your Free Junk Removal Quote"
+        sub="Tell us what you need gone and your ZIP — we’ll text back a fast, upfront price."
+        id="cost"
+        source="cost-mid"
+      />
+    </div>
+  </section>
+
+  <section class="section section--mist" aria-labelledby="faq-h2">
+    <div class="container faqwrap">
+      <span class="eyebrow">Pricing Questions & Answers</span>
+      <h2 id="faq-h2">Utah Junk Removal Cost FAQs</h2>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary>
+              <h3>{f.q}</h3>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <AreasServed />
+
+  <CtaBand heading={`Want an Exact Price in ${SITE.regionShort}?`} />
+</Layout>
+
+<style>
+  .narrow { max-width: 680px; }
+  .tbl-wrap { margin-top: 24px; overflow-x: auto; }
+  .price-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .price-tbl th,
+  .price-tbl td {
+    text-align: left;
+    padding: 14px 16px; /* comfortable ≥44px row tap targets */
+    border-bottom: 1px solid var(--line);
+    font-size: 0.98rem;
+  }
+  .price-tbl thead th {
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .price-tbl tbody tr:last-child th,
+  .price-tbl tbody tr:last-child td { border-bottom: none; }
+  .price-tbl tbody th { font-weight: 700; }
+  .price { font-weight: 800; white-space: nowrap; }
+  .fineprint { margin-top: 14px; font-size: 0.9rem; color: var(--slate); max-width: 72ch; }
+  .steps { margin: 20px 0 30px; padding-left: 20px; display: grid; gap: 12px; }
+  .steps li { line-height: 1.55; }
+
+  .faqwrap { max-width: 820px; }
+  .faq-list { margin-top: 22px; border-top: 1px solid var(--line); }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 0; /* full-row tap target ≥44px */
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item h3 { margin: 0; font-size: 1.12rem; }
+  .faq-icon { position: relative; width: 18px; height: 18px; flex: none; }
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    background: var(--green);
+    border-radius: 2px;
+  }
+  .faq-icon::before { top: 8px; left: 0; width: 18px; height: 2px; }
+  .faq-icon::after { left: 8px; top: 0; width: 2px; height: 18px; transition: transform 0.15s ease; }
+  .faq-item[open] .faq-icon::after { transform: rotate(90deg); }
+  .faq-item p { margin: 0 0 18px; color: var(--slate); }
+</style>
